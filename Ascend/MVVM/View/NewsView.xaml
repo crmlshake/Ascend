@@ -1,0 +1,1043 @@
+﻿<UserControl x:Class="Ascend.MVVM.View.NewsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:wpfAnimatedGif="http://wpfanimatedgif.codeplex.com"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             Background="Transparent"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
+
+    <UserControl.Resources>
+        <Style x:Key="NavigateButton" 
+               TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                CornerRadius="15" 
+                                Background="{TemplateBinding Background}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="Transparent"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="#2d2d52"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <!--Abgerundeter Container-->
+    <Border CornerRadius="10"
+            ClipToBounds="True"
+            SnapsToDevicePixels="True">
+
+        <!--Hintergrundbild per ImageBrush-->
+        <Border.Background>
+            <ImageBrush ImageSource="/Icons/NewsBackgroundTest2.jpg"
+                        Stretch="UniformToFill"
+                        AlignmentX="Center"
+                        AlignmentY="Top"/>
+        </Border.Background>
+
+        <!--Scrollbarer Inhalt-->
+        <ScrollViewer VerticalScrollBarVisibility="Hidden"
+                      HorizontalScrollBarVisibility="Disabled"
+                      PanningMode="VerticalOnly"
+                      Background="Transparent">
+            <StackPanel Margin="20">
+
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Stretch" 
+                            Margin="0,10,0,152">
+                    <TextBlock FontSize="31"
+                               FontFamily="Super Comic"
+                               Foreground="White"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Margin="335,0,0,0">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="Black"
+                                              Direction="320"
+                                              ShadowDepth="3"
+                                              Opacity="0.7"
+                                              BlurRadius="12"/>
+                        </TextBlock.Effect>
+
+                          <Run Text="Thank you"/>
+                          <LineBreak/>
+                          <Run Text="for using Ascend."/>
+                          <LineBreak/>
+                          <Run Text="You're amazing!"/>
+                    </TextBlock>
+
+                    <!--
+                    <Image x:Name="AnimatedGif"
+                           Width="175"
+                           Height="175"
+                           VerticalAlignment="Center"
+                           Margin="170,0,0,0"
+                           Stretch="Uniform"/>
+                     -->
+                </StackPanel>
+
+                <TextBlock Text="WHAT'S NEW?"
+                           FontSize="25"
+                           FontFamily="Super Comic"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,0">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="Black"
+                                          Direction="320"
+                                          ShadowDepth="3"
+                                          Opacity="0.7"
+                                          BlurRadius="12"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+
+                <!--Tab 1-->
+                <Grid Width="600"
+                      Height="240"
+                      Margin="10"
+                      RenderTransformOrigin="0.5,0">
+                    <!--Skalierung-->
+                    <Grid.RenderTransform>
+                        <ScaleTransform x:Name="scaleTransform1" 
+                                        ScaleX="1" 
+                                        ScaleY="1"/>
+                    </Grid.RenderTransform>
+                    <!--Shadow-->
+                    <Grid.Effect>
+                        <DropShadowEffect x:Name="shadowEffect1" 
+                                          BlurRadius="20" 
+                                          ShadowDepth="0" 
+                                          Opacity="0.8"/>
+                    </Grid.Effect>
+                    <!--Äußerer Rand-->
+                    <Border CornerRadius="17" 
+                            BorderThickness="1.5">
+                        <Border.BorderBrush>
+                            <LinearGradientBrush x:Name="animatedGradient1" 
+                                                 StartPoint="0,0" 
+                                                 EndPoint="1,0">
+                                <LinearGradientBrush.RelativeTransform>
+                                    <TranslateTransform x:Name="brushTransform1" 
+                                                        X="0"/>
+                                </LinearGradientBrush.RelativeTransform>
+                                <GradientStop x:Name="leftStop1" 
+                                              Color="#303057" 
+                                              Offset="0"/>
+                                <GradientStop x:Name="rightStop1" 
+                                              Color="#303057" 
+                                              Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+                    </Border>
+                    <!--Innerer Inhalt-->
+                    <Border Width="596" 
+                            Height="236" 
+                            CornerRadius="15">
+                        <Border.Background>
+                            <ImageBrush ImageSource="/Icons/AIBackground01.png" 
+                                        Stretch="Fill"
+                                        RenderOptions.BitmapScalingMode="Fant"/>
+                        </Border.Background>
+
+                        <StackPanel Orientation="Vertical"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,10,0">
+                            <TextBlock Text="Did you try our AI?"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       Margin="0,0,0,12"/>
+                            <TextBlock FontSize="14"
+                                       Foreground="#BEBEBE"
+                                       Margin="0,5,0,10">
+                                  <Run Text="Looking for more motivation"/>
+                                  <LineBreak/>
+                                  <Run Text="and even more XP? Try NXO."/>
+                                  <LineBreak/>
+                                  <Run Text="Based on your previous"/>
+                                  <LineBreak/>
+                                  <Run Text="to-dos, new ones will be"/>
+                                  <LineBreak/>
+                                  <Run Text="generated, tailored to"/>
+                                  <LineBreak/>
+                                  <Run Text="your needs."/>
+                            </TextBlock>
+                            <Button Content="Navigate"
+                                    HorizontalAlignment="Left"
+                                    Width="100"
+                                    Height="30"
+                                    FontSize="14"
+                                    Background="Transparent"
+                                    Foreground="White"
+                                    BorderThickness="1"
+                                    BorderBrush="White"
+                                    Cursor="Hand"
+                                    Margin="0,10,0,0"
+                                    Style="{StaticResource NavigateButton}"/>
+                        </StackPanel>
+                    </Border>
+                    <!--Trigger-->
+                    <Grid.Triggers>
+                        <EventTrigger RoutedEvent="Grid.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="scaleTransform1" 
+                                                     Storyboard.TargetProperty="ScaleX" 
+                                                     To="1.05" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="scaleTransform1" 
+                                                     Storyboard.TargetProperty="ScaleY" 
+                                                     To="1.05" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect1" 
+                                                     Storyboard.TargetProperty="BlurRadius" 
+                                                     To="24" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect1" 
+                                                     Storyboard.TargetProperty="Opacity" 
+                                                     To="0.6" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="brushTransform1" 
+                                                     Storyboard.TargetProperty="X" 
+                                                     From="0" 
+                                                     To="1" 
+                                                     Duration="0:0:2" 
+                                                     AutoReverse="True" 
+                                                     RepeatBehavior="Forever">
+                                        <DoubleAnimation.EasingFunction>
+                                            <SineEase EasingMode="EaseInOut"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <ColorAnimation Storyboard.TargetName="leftStop1" 
+                                                    Storyboard.TargetProperty="Color" 
+                                                    From="#303057" 
+                                                    To="White" 
+                                                    Duration="0:0:2" 
+                                                    AutoReverse="True" 
+                                                    RepeatBehavior="Forever"/>
+                                    <ColorAnimation Storyboard.TargetName="rightStop1" 
+                                                    Storyboard.TargetProperty="Color" 
+                                                    From="#303057" 
+                                                    To="White" 
+                                                    Duration="0:0:2" 
+                                                    AutoReverse="True" 
+                                                    RepeatBehavior="Forever"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="Grid.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="scaleTransform1" 
+                                                     Storyboard.TargetProperty="ScaleX" 
+                                                     To="1" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="scaleTransform1" 
+                                                     Storyboard.TargetProperty="ScaleY" 
+                                                     To="1" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect1" 
+                                                     Storyboard.TargetProperty="BlurRadius" 
+                                                     To="20" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect1" 
+                                                     Storyboard.TargetProperty="Opacity" 
+                                                     To="0.8" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="brushTransform1" 
+                                                     Storyboard.TargetProperty="X" 
+                                                     To="0" 
+                                                     Duration="0:0:0.5">
+                                        <DoubleAnimation.EasingFunction>
+                                            <SineEase EasingMode="EaseInOut"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <ColorAnimation Storyboard.TargetName="leftStop1" 
+                                                    Storyboard.TargetProperty="Color" 
+                                                    To="#303057" 
+                                                    Duration="0:0:0.5"/>
+                                    <ColorAnimation Storyboard.TargetName="rightStop1" 
+                                                    Storyboard.TargetProperty="Color" 
+                                                    To="#303057" 
+                                                    Duration="0:0:0.5"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Grid.Triggers>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center"
+                            Margin="0,10,0,0">
+
+                    <!--Tab 2-->
+                    <Grid Width="290"
+                          Height="480"
+                          Margin="10"
+                          RenderTransformOrigin="0.5,0">
+                        <!--Skalierung-->
+                        <Grid.RenderTransform>
+                            <ScaleTransform x:Name="scaleTransform2" 
+                                            ScaleX="1" 
+                                            ScaleY="1"/>
+                        </Grid.RenderTransform>
+                        <!--Shadow-->
+                        <Grid.Effect>
+                            <DropShadowEffect x:Name="shadowEffect2" 
+                                              BlurRadius="20" 
+                                              ShadowDepth="0" 
+                                              Opacity="0.8"/>
+                        </Grid.Effect>
+                        <!--Äußerer Rand mit Gradient-->
+                        <Border CornerRadius="17" 
+                                BorderThickness="1.5">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush x:Name="animatedGradient2" 
+                                                     StartPoint="0,0" 
+                                                     EndPoint="1,0">
+                                    <LinearGradientBrush.RelativeTransform>
+                                        <TranslateTransform x:Name="brushTransform2" 
+                                                            X="0"/>
+                                    </LinearGradientBrush.RelativeTransform>
+                                    <GradientStop x:Name="leftStop2" 
+                                                  Color="#303057" 
+                                                  Offset="0"/>
+                                    <GradientStop x:Name="rightStop2" 
+                                                  Color="#303057" 
+                                                  Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                        </Border>
+                        <!--Innerer Inhalt-->
+                        <Border Width="286" 
+                                Height="476" 
+                                CornerRadius="15">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Icons/PPBackground.jpg" 
+                                            Stretch="Fill"
+                                            RenderOptions.BitmapScalingMode="Fant"/>
+                            </Border.Background>
+
+                            <StackPanel Orientation="Vertical" 
+                                        VerticalAlignment="Center" 
+                                        HorizontalAlignment="Left"
+                                        Margin="12,40,0,0">
+                                <TextBlock Text="Personalize your profile"
+                                           Foreground="White"
+                                           FontWeight="Bold"
+                                           FontSize="20"
+                                           Margin="0,190,10,0"/>
+                                <TextBlock Foreground="#BEBEBE"
+                                           Margin="0,15,0,0"
+                                           FontSize="14">
+                                      <Run Text="Level up and unlock a bunch of"/>
+                                      <LineBreak/>
+                                      <Run Text="new profile pictures."/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+
+                        <!--Trigger-->
+                        <Grid.Triggers>
+                            <!--MouseEnter-->
+                            <EventTrigger RoutedEvent="Grid.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!--Scale-->
+                                        <DoubleAnimation Storyboard.TargetName="scaleTransform2" 
+                                                         Storyboard.TargetProperty="ScaleX" 
+                                                         To="1.05" 
+                                                         Duration="0:0:0.25"/>
+                                        <DoubleAnimation Storyboard.TargetName="scaleTransform2" 
+                                                         Storyboard.TargetProperty="ScaleY" 
+                                                         To="1.05" 
+                                                         Duration="0:0:0.25"/>
+                                        <!--Shadow-->
+                                        <DoubleAnimation Storyboard.TargetName="shadowEffect2" 
+                                                         Storyboard.TargetProperty="BlurRadius" 
+                                                         To="24" 
+                                                         Duration="0:0:0.25"/>
+                                        <DoubleAnimation Storyboard.TargetName="shadowEffect2" 
+                                                         Storyboard.TargetProperty="Opacity" 
+                                                         To="0.6" 
+                                                         Duration="0:0:0.25"/>
+                                        <!--Gradient bewegen-->
+                                        <DoubleAnimation Storyboard.TargetName="brushTransform2" 
+                                                         Storyboard.TargetProperty="X" 
+                                                         From="0" 
+                                                         To="1" 
+                                                         Duration="0:0:2" 
+                                                         AutoReverse="True" 
+                                                         RepeatBehavior="Forever">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <!--Gradient Farben atmen-->
+                                        <ColorAnimation Storyboard.TargetName="leftStop2" 
+                                                        Storyboard.TargetProperty="Color" 
+                                                        From="#303057" 
+                                                        To="White" 
+                                                        Duration="0:0:2" 
+                                                        AutoReverse="True" 
+                                                        RepeatBehavior="Forever"/>
+                                        <ColorAnimation Storyboard.TargetName="rightStop2" 
+                                                        Storyboard.TargetProperty="Color" 
+                                                        From="#303057" 
+                                                        To="White" 
+                                                        Duration="0:0:2" 
+                                                        AutoReverse="True" 
+                                                        RepeatBehavior="Forever"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!--MouseLeave-->
+                            <EventTrigger RoutedEvent="Grid.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!--Scale zurück-->
+                                        <DoubleAnimation Storyboard.TargetName="scaleTransform2" 
+                                                         Storyboard.TargetProperty="ScaleX" 
+                                                         To="1" 
+                                                         Duration="0:0:0.25"/>
+                                        <DoubleAnimation Storyboard.TargetName="scaleTransform2" 
+                                                         Storyboard.TargetProperty="ScaleY" 
+                                                         To="1" 
+                                                         Duration="0:0:0.25"/>
+                                        <!--Shadow zurück-->
+                                        <DoubleAnimation Storyboard.TargetName="shadowEffect2" 
+                                                         Storyboard.TargetProperty="BlurRadius" 
+                                                         To="20" 
+                                                         Duration="0:0:0.25"/>
+                                        <DoubleAnimation Storyboard.TargetName="shadowEffect2" 
+                                                         Storyboard.TargetProperty="Opacity" 
+                                                         To="0.8" 
+                                                         Duration="0:0:0.25"/>
+                                        <!--Gradient zurücksetzen-->
+                                        <DoubleAnimation Storyboard.TargetName="brushTransform2" 
+                                                         Storyboard.TargetProperty="X" 
+                                                         To="0" 
+                                                         Duration="0:0:0.5">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <!--Farben zurück-->
+                                        <ColorAnimation Storyboard.TargetName="leftStop2" 
+                                                        Storyboard.TargetProperty="Color" 
+                                                        To="#303057" 
+                                                        Duration="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="rightStop2" 
+                                                        Storyboard.TargetProperty="Color" 
+                                                        To="#303057" 
+                                                        Duration="0:0:0.5"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Grid.Triggers>
+                    </Grid>
+
+                    <!--Tab 3-->
+                    <Grid Width="290"
+                          Height="480"
+                          Margin="10"
+                          RenderTransformOrigin="0.5,0">
+                        <!--Skalierung-->
+                        <Grid.RenderTransform>
+                            <ScaleTransform x:Name="scaleTransform3" 
+                                            ScaleX="1" 
+                                            ScaleY="1"/>
+                        </Grid.RenderTransform>
+                        <!--Shadow-->
+                        <Grid.Effect>
+                            <DropShadowEffect x:Name="shadowEffect3" 
+                                              BlurRadius="20" 
+                                              ShadowDepth="0" 
+                                              Opacity="0.8"/>
+                        </Grid.Effect>
+                        <!--Äußerer Rand mit Gradient-->
+                        <Border CornerRadius="17" 
+                                BorderThickness="1.5">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush x:Name="animatedGradient3" 
+                                                     StartPoint="0,0" 
+                                                     EndPoint="1,0">
+                                    <LinearGradientBrush.RelativeTransform>
+                                        <TranslateTransform x:Name="brushTransform3" 
+                                                            X="0"/>
+                                    </LinearGradientBrush.RelativeTransform>
+                                    <GradientStop x:Name="leftStop3" 
+                                                  Color="#303057" 
+                                                  Offset="0"/>
+                                    <GradientStop x:Name="rightStop3" 
+                                                  Color="#303057" 
+                                                  Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                        </Border>
+                        <!--Innerer Inhalt-->
+                        <Border Width="286" 
+                                Height="476" 
+                                CornerRadius="15">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Icons/FramesBackground.jpg" 
+                                            Stretch="Fill"
+                                            RenderOptions.BitmapScalingMode="Fant"/>
+                            </Border.Background>
+
+                            <StackPanel Orientation="Vertical" 
+                                        VerticalAlignment="Center" 
+                                        HorizontalAlignment="Left"
+                                        Margin="12,0,0,0">
+                                <Grid VerticalAlignment="Center" 
+                                      Margin="35,-15,0,0">
+                                    <Image Source="/Icons/PP03.png"
+                                           Width="212"
+                                           Height="212"
+                                           Stretch="Uniform"
+                                           Margin="0,0,0,0"
+                                           RenderOptions.BitmapScalingMode="Fant"/>
+                                    <Image x:Name="AnimatedGif2"
+                                           Width="200"
+                                           Height="200"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,0,0"
+                                           Stretch="Uniform"/>
+                                </Grid>
+                                <TextBlock Text="Use frames"
+                                           Foreground="White"
+                                           FontWeight="Bold"
+                                           FontSize="20"
+                                           Margin="0,50,10,0"/>
+                                <TextBlock Foreground="#BEBEBE"
+                                           Margin="0,15,0,0"
+                                           FontSize="14">
+                                      <Run Text="You will find many creative ways to"/>
+                                      <LineBreak/>
+                                      <Run Text="combine your profile picture with"/>
+                                      <LineBreak/>
+                                      <Run Text="a breathtaking frame."/>
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+
+                        <!--Trigger-->
+                        <Grid.Triggers>
+                            <!--MouseEnter-->
+                            <EventTrigger RoutedEvent="Grid.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!--Scale-->
+                                        <DoubleAnimation Storyboard.TargetName="scaleTransform3" 
+                                                         Storyboard.TargetProperty="ScaleX" 
+                                                         To="1.05" 
+                                                         Duration="0:0:0.25"/>
+                                        <DoubleAnimation Storyboard.TargetName="scaleTransform3" 
+                                                         Storyboard.TargetProperty="ScaleY" 
+                                                         To="1.05" 
+                                                         Duration="0:0:0.25"/>
+                                        <!--Shadow-->
+                                        <DoubleAnimation Storyboard.TargetName="shadowEffect3" 
+                                                         Storyboard.TargetProperty="BlurRadius" 
+                                                         To="24" 
+                                                         Duration="0:0:0.25"/>
+                                        <DoubleAnimation Storyboard.TargetName="shadowEffect3" 
+                                                         Storyboard.TargetProperty="Opacity" 
+                                                         To="0.6" 
+                                                         Duration="0:0:0.25"/>
+                                        <!--Gradient bewegen-->
+                                        <DoubleAnimation Storyboard.TargetName="brushTransform3" 
+                                                         Storyboard.TargetProperty="X" 
+                                                         From="0" 
+                                                         To="1" 
+                                                         Duration="0:0:2" 
+                                                         AutoReverse="True" 
+                                                         RepeatBehavior="Forever">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <!--Gradient Farben atmen-->
+                                        <ColorAnimation Storyboard.TargetName="leftStop3" 
+                                                        Storyboard.TargetProperty="Color" 
+                                                        From="#303057" 
+                                                        To="White" 
+                                                        Duration="0:0:2" 
+                                                        AutoReverse="True" 
+                                                        RepeatBehavior="Forever"/>
+                                        <ColorAnimation Storyboard.TargetName="rightStop3" 
+                                                        Storyboard.TargetProperty="Color" 
+                                                        From="#303057" 
+                                                        To="White" 
+                                                        Duration="0:0:2" 
+                                                        AutoReverse="True" 
+                                                        RepeatBehavior="Forever"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!--MouseLeave-->
+                            <EventTrigger RoutedEvent="Grid.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!--Scale zurück-->
+                                        <DoubleAnimation Storyboard.TargetName="scaleTransform3" 
+                                                         Storyboard.TargetProperty="ScaleX" 
+                                                         To="1" 
+                                                         Duration="0:0:0.25"/>
+                                        <DoubleAnimation Storyboard.TargetName="scaleTransform3" 
+                                                         Storyboard.TargetProperty="ScaleY" 
+                                                         To="1" 
+                                                         Duration="0:0:0.25"/>
+                                        <!--Shadow zurück-->
+                                        <DoubleAnimation Storyboard.TargetName="shadowEffect3" 
+                                                         Storyboard.TargetProperty="BlurRadius" 
+                                                         To="20" 
+                                                         Duration="0:0:0.25"/>
+                                        <DoubleAnimation Storyboard.TargetName="shadowEffect3" 
+                                                         Storyboard.TargetProperty="Opacity" 
+                                                         To="0.8" 
+                                                         Duration="0:0:0.25"/>
+                                        <!--Gradient zurücksetzen-->
+                                        <DoubleAnimation Storyboard.TargetName="brushTransform3" 
+                                                         Storyboard.TargetProperty="X" 
+                                                         To="0" 
+                                                         Duration="0:0:0.5">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <!--Farben zurück-->
+                                        <ColorAnimation Storyboard.TargetName="leftStop3" 
+                                                        Storyboard.TargetProperty="Color" 
+                                                        To="#303057" 
+                                                        Duration="0:0:0.5"/>
+                                        <ColorAnimation Storyboard.TargetName="rightStop3" 
+                                                        Storyboard.TargetProperty="Color" 
+                                                        To="#303057" 
+                                                        Duration="0:0:0.5"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Grid.Triggers>
+                    </Grid>
+
+                </StackPanel>
+
+                <!--Tab 4-->
+                <Grid Width="600"
+                      Height="240"
+                      Margin="0,20,0,0"
+                      RenderTransformOrigin="0.5,0">
+                    <!--Skalierung-->
+                    <Grid.RenderTransform>
+                        <ScaleTransform x:Name="scaleTransform4" 
+                                        ScaleX="1" 
+                                        ScaleY="1"/>
+                    </Grid.RenderTransform>
+                    <!--Schatten-->
+                    <Grid.Effect>
+                        <DropShadowEffect x:Name="shadowEffect4" 
+                                          BlurRadius="20" 
+                                          ShadowDepth="0" 
+                                          Opacity="0.8"/>
+                    </Grid.Effect>
+
+                    <!--Äußerer Rand mit animiertem Gradient-->
+                    <Border CornerRadius="17" 
+                            BorderThickness="1.5">
+                        <Border.BorderBrush>
+                            <LinearGradientBrush x:Name="animatedGradient4" 
+                                                 StartPoint="0,0" 
+                                                 EndPoint="1,0">
+                                <LinearGradientBrush.RelativeTransform>
+                                    <TranslateTransform x:Name="brushTransform4" 
+                                                        X="0"/>
+                                </LinearGradientBrush.RelativeTransform>
+                                <GradientStop x:Name="leftStop4" 
+                                              Color="#303057" 
+                                              Offset="0"/>
+                                <GradientStop x:Name="rightStop4" 
+                                              Color="#303057" 
+                                              Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+                    </Border>
+
+                    <!--Innerer Inhalt-->
+                    <Border Width="596"
+                            Height="236"
+                            CornerRadius="15">
+                        <Border.Background>
+                            <ImageBrush ImageSource="/Icons/FavoriteTodosBackground01.jpg" 
+                                        Stretch="Fill"
+                                        RenderOptions.BitmapScalingMode="Fant"/>
+                        </Border.Background>
+
+                        <StackPanel Orientation="Vertical"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Margin="12,-25,10,0">
+                            <TextBlock Text="Favorite to-dos"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       Margin="0,-17,0,12"/>
+                            <TextBlock FontSize="14"
+                                       Foreground="#BEBEBE"
+                                       Margin="0,0,0,10">
+                                  <Run Text="What is really important to"/>
+                                  <LineBreak/>
+                                  <Run Text="you? What will help you"/>
+                                  <LineBreak/>
+                                  <Run Text="progress the fastest?"/>
+                                  <LineBreak/>
+                                  <Run Text="Prioritize your to-dos."/>
+                                  <LineBreak/>
+                            </TextBlock>
+                            <Button Content="Navigate"
+                                    HorizontalAlignment="Left"
+                                    Width="100"
+                                    Height="30"
+                                    FontSize="14"
+                                    Background="Transparent"
+                                    Foreground="White"
+                                    BorderThickness="1"
+                                    BorderBrush="White"
+                                    Cursor="Hand"
+                                    Margin="0,-9,0,0"
+                                    Style="{StaticResource NavigateButton}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!--Trigger-->
+                    <Grid.Triggers>
+                        <!--MouseEnter-->
+                        <EventTrigger RoutedEvent="Grid.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <!--Scale-->
+                                    <DoubleAnimation Storyboard.TargetName="scaleTransform4" 
+                                                     Storyboard.TargetProperty="ScaleX" 
+                                                     To="1.05" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="scaleTransform4" 
+                                                     Storyboard.TargetProperty="ScaleY" 
+                                                     To="1.05" 
+                                                     Duration="0:0:0.25"/>
+                                    <!--Shadow-->
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect4" 
+                                                     Storyboard.TargetProperty="BlurRadius" 
+                                                     To="24" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect4" 
+                                                     Storyboard.TargetProperty="Opacity" 
+                                                     To="0.6" 
+                                                     Duration="0:0:0.25"/>
+                                    <!--Gradient bewegen-->
+                                    <DoubleAnimation Storyboard.TargetName="brushTransform4" 
+                                                     Storyboard.TargetProperty="X" 
+                                                     From="0" 
+                                                     To="1" 
+                                                     Duration="0:0:2" 
+                                                     AutoReverse="True" 
+                                                     RepeatBehavior="Forever">
+                                        <DoubleAnimation.EasingFunction>
+                                            <SineEase EasingMode="EaseInOut"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <!--Farben atmen-->
+                                    <ColorAnimation Storyboard.TargetName="leftStop4" 
+                                                    Storyboard.TargetProperty="Color" 
+                                                    From="#303057" 
+                                                    To="White" 
+                                                    Duration="0:0:2" 
+                                                    AutoReverse="True" 
+                                                    RepeatBehavior="Forever"/>
+                                    <ColorAnimation Storyboard.TargetName="rightStop4" 
+                                                    Storyboard.TargetProperty="Color" 
+                                                    From="#303057" 
+                                                    To="White" 
+                                                    Duration="0:0:2" 
+                                                    AutoReverse="True" 
+                                                    RepeatBehavior="Forever"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+                        <!--MouseLeave-->
+                        <EventTrigger RoutedEvent="Grid.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <!--Scale zurück-->
+                                    <DoubleAnimation Storyboard.TargetName="scaleTransform4" 
+                                                     Storyboard.TargetProperty="ScaleX" 
+                                                     To="1" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="scaleTransform4" 
+                                                     Storyboard.TargetProperty="ScaleY" 
+                                                     To="1" 
+                                                     Duration="0:0:0.25"/>
+                                    <!--Shadow zurück-->
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect4" 
+                                                     Storyboard.TargetProperty="BlurRadius" 
+                                                     To="20" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect4" 
+                                                     Storyboard.TargetProperty="Opacity" 
+                                                     To="0.8" 
+                                                     Duration="0:0:0.25"/>
+                                    <!--Gradient zurücksetzen-->
+                                    <DoubleAnimation Storyboard.TargetName="brushTransform4" 
+                                                     Storyboard.TargetProperty="X" 
+                                                     To="0" 
+                                                     Duration="0:0:0.5">
+                                        <DoubleAnimation.EasingFunction>
+                                            <SineEase EasingMode="EaseInOut"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <!--Farben zurück-->
+                                    <ColorAnimation Storyboard.TargetName="leftStop4" 
+                                                    Storyboard.TargetProperty="Color" 
+                                                    To="#303057" 
+                                                    Duration="0:0:0.5"/>
+                                    <ColorAnimation Storyboard.TargetName="rightStop4" 
+                                                    Storyboard.TargetProperty="Color" 
+                                                    To="#303057" 
+                                                    Duration="0:0:0.5"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Grid.Triggers>
+                </Grid>
+
+                <TextBlock Text="COMING SOON"
+                           FontSize="25"
+                           FontFamily="Super Comic"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="0,140,0,0">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="Black"
+                                          Direction="320"
+                                          ShadowDepth="3"
+                                          Opacity="0.7"
+                                          BlurRadius="12"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+
+                <!--Tab 5-->
+                <Grid Width="600"
+                      Height="240"
+                      Margin="10"
+                      RenderTransformOrigin="0.5,0">
+                    <!--Skalierung-->
+                    <Grid.RenderTransform>
+                        <ScaleTransform x:Name="scaleTransform5" 
+                                        ScaleX="1" 
+                                        ScaleY="1"/>
+                    </Grid.RenderTransform>
+                    <!--Schatten-->
+                    <Grid.Effect>
+                        <DropShadowEffect x:Name="shadowEffect5" 
+                                          BlurRadius="20" 
+                                          ShadowDepth="0" 
+                                          Opacity="0.8"/>
+                    </Grid.Effect>
+
+                    <!--Äußerer Rand mit animiertem Gradient-->
+                    <Border CornerRadius="17" 
+                            BorderThickness="1.5">
+                        <Border.BorderBrush>
+                            <LinearGradientBrush x:Name="animatedGradient5" 
+                                                 StartPoint="0,0" 
+                                                 EndPoint="1,0">
+                                <LinearGradientBrush.RelativeTransform>
+                                    <TranslateTransform x:Name="brushTransform5" 
+                                                        X="0"/>
+                                </LinearGradientBrush.RelativeTransform>
+                                <GradientStop x:Name="leftStop5" 
+                                              Color="#303057" 
+                                              Offset="0"/>
+                                <GradientStop x:Name="rightStop5" 
+                                              Color="#303057" 
+                                              Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+                    </Border>
+
+                    <!--Innerer Inhalt-->
+                    <Border Width="596"
+                            Height="236"
+                            CornerRadius="15">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" 
+                                                 EndPoint="0,1">
+                                <GradientStop Color="#272747" 
+                                              Offset="0"/>
+                                <GradientStop Color="#161629" 
+                                              Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+
+                        <StackPanel Orientation="Vertical"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Margin="12,0,10,85">
+                            <TextBlock Text="Placeholder"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       Margin="0,0,0,12"/>
+                            <TextBlock Text="No data yet…"
+                                       FontSize="14"
+                                       Foreground="#BEBEBE"
+                                       Margin="0,5,0,10"/>
+                            <Button Content="Navigate"
+                                    HorizontalAlignment="Left"
+                                    Width="100"
+                                    Height="30"
+                                    FontSize="14"
+                                    Background="Transparent"
+                                    Foreground="White"
+                                    BorderThickness="1"
+                                    BorderBrush="White"
+                                    Cursor="Hand"
+                                    Margin="0,10,0,0"
+                                    Style="{StaticResource NavigateButton}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!--Trigger-->
+                    <Grid.Triggers>
+                        <!--MouseEnter-->
+                        <EventTrigger RoutedEvent="Grid.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <!--Scale-->
+                                    <DoubleAnimation Storyboard.TargetName="scaleTransform5" 
+                                                     Storyboard.TargetProperty="ScaleX" 
+                                                     To="1.05" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="scaleTransform5" 
+                                                     Storyboard.TargetProperty="ScaleY" 
+                                                     To="1.05" 
+                                                     Duration="0:0:0.25"/>
+                                    <!--Shadow-->
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect5" 
+                                                     Storyboard.TargetProperty="BlurRadius" 
+                                                     To="24" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect5" 
+                                                     Storyboard.TargetProperty="Opacity" 
+                                                     To="0.6" 
+                                                     Duration="0:0:0.25"/>
+                                    <!--Gradient bewegen-->
+                                    <DoubleAnimation Storyboard.TargetName="brushTransform5" 
+                                                     Storyboard.TargetProperty="X" 
+                                                     From="0" 
+                                                     To="1" 
+                                                     Duration="0:0:2" 
+                                                     AutoReverse="True" 
+                                                     RepeatBehavior="Forever">
+                                        <DoubleAnimation.EasingFunction>
+                                            <SineEase EasingMode="EaseInOut"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <!--Farben atmen-->
+                                    <ColorAnimation Storyboard.TargetName="leftStop5" 
+                                                    Storyboard.TargetProperty="Color" 
+                                                    From="#303057" 
+                                                    To="White" 
+                                                    Duration="0:0:2" 
+                                                    AutoReverse="True" 
+                                                    RepeatBehavior="Forever"/>
+                                    <ColorAnimation Storyboard.TargetName="rightStop5" 
+                                                    Storyboard.TargetProperty="Color" 
+                                                    From="#303057" 
+                                                    To="White" 
+                                                    Duration="0:0:2" 
+                                                    AutoReverse="True" 
+                                                    RepeatBehavior="Forever"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+                        <!--MouseLeave-->
+                        <EventTrigger RoutedEvent="Grid.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <!--Scale zurück-->
+                                    <DoubleAnimation Storyboard.TargetName="scaleTransform5" 
+                                                     Storyboard.TargetProperty="ScaleX" 
+                                                     To="1" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="scaleTransform5" 
+                                                     Storyboard.TargetProperty="ScaleY" 
+                                                     To="1" 
+                                                     Duration="0:0:0.25"/>
+                                    <!--Shadow zurück-->
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect5" 
+                                                     Storyboard.TargetProperty="BlurRadius" 
+                                                     To="20" 
+                                                     Duration="0:0:0.25"/>
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect5" 
+                                                     Storyboard.TargetProperty="Opacity" 
+                                                     To="0.8" 
+                                                     Duration="0:0:0.25"/>
+                                    <!--Gradient zurücksetzen-->
+                                    <DoubleAnimation Storyboard.TargetName="brushTransform5" 
+                                                     Storyboard.TargetProperty="X" 
+                                                     To="0" 
+                                                     Duration="0:0:0.5">
+                                        <DoubleAnimation.EasingFunction>
+                                            <SineEase EasingMode="EaseInOut"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                    <!--Farben zurück-->
+                                    <ColorAnimation Storyboard.TargetName="leftStop5" 
+                                                    Storyboard.TargetProperty="Color" 
+                                                    To="#303057" 
+                                                    Duration="0:0:0.5"/>
+                                    <ColorAnimation Storyboard.TargetName="rightStop5" 
+                                                    Storyboard.TargetProperty="Color" 
+                                                    To="#303057" 
+                                                    Duration="0:0:0.5"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Grid.Triggers>
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Border>
+</UserControl>

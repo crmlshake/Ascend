@@ -1,0 +1,689 @@
+﻿<UserControl x:Class="Ascend.MVVM.View.TodosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ascend.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" 
+             d:DesignWidth="800"
+             Background="Transparent">
+
+    <!--Style für TodoTextBox-->
+    <UserControl.Resources>
+        <Style x:Key="RoundedTodoTextBoxStyle" 
+               TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" 
+                                CornerRadius="15" 
+                                Background="{TemplateBinding Background}" 
+                                BorderThickness="1" 
+                                BorderBrush="Transparent" 
+                                Padding="5">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="#2a2a4d"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RoundedButton" 
+               TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                CornerRadius="15" 
+                                Background="{TemplateBinding Background}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="#2a2a4d"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="#303057"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DeleteTodoButton" 
+               TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                CornerRadius="15" 
+                                Background="{TemplateBinding Background}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="#a10000"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="#960000"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CompleteTodoButton" 
+               TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                CornerRadius="15" 
+                                Background="{TemplateBinding Background}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="#2a812f"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="#236b28"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="FavoriteButton" 
+               TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                CornerRadius="15" 
+                                Background="{TemplateBinding Background}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="Transparent"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="Transparent"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+
+        <StackPanel HorizontalAlignment="Center" 
+                    VerticalAlignment="Top">
+            <TextBlock x:Name="DateTextBlock" 
+                       Text="{Binding CurrentDate}" 
+                       HorizontalAlignment="Center" 
+                       FontSize="24" 
+                       FontWeight="Bold"
+                       Foreground="White"
+                       Margin="0,10,0,0"/>
+
+            <!--Eingabebereich für neue To-dos-->
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center" 
+                        Margin="0,10,0,20">
+                <TextBox x:Name="TodoInput" 
+                         Width="300" 
+                         Height="30" 
+                         VerticalAlignment="Center" 
+                         HorizontalAlignment="Center"
+                         TextAlignment="Center"
+                         Background="#242442"
+                         Foreground="White"
+                         BorderBrush="Transparent"
+                         Text="{Binding NewTodoText, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource RoundedTodoTextBoxStyle}"/>
+                <Button Content="+" 
+                        Width="30" 
+                        Background="#242442"
+                        Foreground="White"
+                        BorderThickness="0"
+                        Margin="10,0,0,0" 
+                        Cursor="Hand"
+                        FontSize="22"
+                        Command="{Binding AddTodoCommand}"
+                        Style="{StaticResource RoundedButton}"/>
+            </StackPanel>
+
+            <!--Favorites Titel-->
+            <TextBlock Text="Favorites"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Foreground="#BEBEBE"
+                       Margin="12,0,0,0"
+                       HorizontalAlignment="Left"/>
+
+            <!--Favorites Liste-->
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" 
+                          Height="150">
+                <ItemsControl ItemsSource="{Binding FavoriteTodos}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" 
+                                       Width="700"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!--Outer Grid übernimmt alles-->
+                            <Grid Width="200" 
+                                  Height="120" 
+                                  Margin="11" 
+                                  RenderTransformOrigin="0.5,0">
+                                <!--Skalierung-->
+                                <Grid.RenderTransform>
+                                    <ScaleTransform x:Name="favoriteScaleTransform" 
+                                                    ScaleX="1" 
+                                                    ScaleY="1"/>
+                                </Grid.RenderTransform>
+
+                                <!--Schatten-->
+                                <Grid.Effect>
+                                    <DropShadowEffect x:Name="favoriteShadowEffect" 
+                                                      BlurRadius="20" 
+                                                      ShadowDepth="0" 
+                                                      Opacity="0.8"/>
+                                </Grid.Effect>
+
+                                <!--Rahmen mit animiertem Gradient-->
+                                <Border CornerRadius="15" 
+                                        BorderThickness="1.5">
+                                    <Border.BorderBrush>
+                                        <LinearGradientBrush x:Name="favoriteGradientBrush" 
+                                                             StartPoint="0,0" 
+                                                             EndPoint="1,0">
+                                            <LinearGradientBrush.RelativeTransform>
+                                                <TranslateTransform x:Name="favoriteBrushTransform" 
+                                                                    X="0"/>
+                                            </LinearGradientBrush.RelativeTransform>
+                                            <GradientStop x:Name="favoriteLeftStop" 
+                                                          Color="#303057" 
+                                                          Offset="0"/>
+                                            <GradientStop x:Name="favoriteRightStop" 
+                                                          Color="#303057" 
+                                                          Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.BorderBrush>
+
+                                    <!--Inhalt mit vertikalem Farbverlauf-->
+                                    <Border CornerRadius="13" 
+                                            Padding="10">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" 
+                                                                 EndPoint="0,1">
+                                                <GradientStop Color="#272747" 
+                                                              Offset="0.0"/>
+                                                <GradientStop Color="#161629" 
+                                                              Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Text}" 
+                                                       FontSize="16" 
+                                                       HorizontalAlignment="Center"
+                                                       Foreground="White"
+                                                       TextWrapping="Wrap"/>
+                                            <StackPanel Orientation="Horizontal"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,10,0,0">
+                                                <Button Content="✓" 
+                                                        Foreground="White"
+                                                        Width="50"
+                                                        Height="28"
+                                                        Cursor="Hand"
+                                                        BorderThickness="0"
+                                                        Command="{Binding DataContext.CompleteTodoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource CompleteTodoButton}">
+                                                    <Button.Background>
+                                                        <LinearGradientBrush StartPoint="0,0" 
+                                                                             EndPoint="0,1">
+                                                            <GradientStop Color="#3bb143" 
+                                                                          Offset="0.0"/>
+                                                            <GradientStop Color="#2a812f" 
+                                                                          Offset="1.0"/>
+                                                        </LinearGradientBrush>
+                                                    </Button.Background>
+                                                </Button>
+                                                <Button Content="X" 
+                                                        Foreground="White"
+                                                        Width="50"
+                                                        Height="28"
+                                                        Margin="10,0,0,0"
+                                                        Cursor="Hand"
+                                                        BorderThickness="0"
+                                                        Command="{Binding DataContext.RemoveTodoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource DeleteTodoButton}">
+                                                    <Button.Background>
+                                                        <LinearGradientBrush StartPoint="0,0" 
+                                                                             EndPoint="0,1">
+                                                            <GradientStop Color="#d30000" 
+                                                                          Offset="0.0"/>
+                                                            <GradientStop Color="#a10000" 
+                                                                          Offset="1.0"/>
+                                                        </LinearGradientBrush>
+                                                    </Button.Background>
+                                                </Button>
+                                            </StackPanel>
+
+                                            <Button Content="★" 
+                                                    Foreground="#FFD700"
+                                                    Background="Transparent"
+                                                    Width="28"
+                                                    Height="28"
+                                                    FontSize="22"
+                                                    Margin="0,10,0,0"
+                                                    Cursor="Hand"
+                                                    BorderThickness="0"
+                                                    Command="{Binding DataContext.ToggleFavoriteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource FavoriteButton}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Border>
+
+                                <!--Trigger für Hover-->
+                                <Grid.Triggers>
+                                    <!--MouseEnter-->
+                                    <EventTrigger RoutedEvent="Grid.MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <!--Skalierung-->
+                                                <DoubleAnimation Storyboard.TargetName="favoriteScaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleX"
+                                                                 To="1.05" 
+                                                                 Duration="0:0:0.25"/>
+                                                <DoubleAnimation Storyboard.TargetName="favoriteScaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleY"
+                                                                 To="1.05" 
+                                                                 Duration="0:0:0.25"/>
+                                                <!--Schatten-->
+                                                <DoubleAnimation Storyboard.TargetName="favoriteShadowEffect"
+                                                                 Storyboard.TargetProperty="BlurRadius"
+                                                                 To="24" 
+                                                                 Duration="0:0:0.25"/>
+                                                <DoubleAnimation Storyboard.TargetName="favoriteShadowEffect"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="0.6" 
+                                                                 Duration="0:0:0.25"/>
+                                                <!--Gradient bewegen-->
+                                                <DoubleAnimation Storyboard.TargetName="favoriteBrushTransform"
+                                                                 Storyboard.TargetProperty="X"
+                                                                 From="0" 
+                                                                 To="1"
+                                                                 Duration="0:0:2" 
+                                                                 AutoReverse="True" 
+                                                                 RepeatBehavior="Forever">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <SineEase EasingMode="EaseInOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <!--Farben „atmet“-->
+                                                <ColorAnimation Storyboard.TargetName="favoriteLeftStop"
+                                                                Storyboard.TargetProperty="Color"
+                                                                From="#303057" 
+                                                                To="#d9d900"
+                                                                Duration="0:0:2" 
+                                                                AutoReverse="True" 
+                                                                RepeatBehavior="Forever"/>
+                                                <ColorAnimation Storyboard.TargetName="favoriteRightStop"
+                                                                Storyboard.TargetProperty="Color"
+                                                                From="#303057" 
+                                                                To="#d9d900"
+                                                                Duration="0:0:2" 
+                                                                AutoReverse="True" 
+                                                                RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+
+                                    <!--MouseLeave-->
+                                    <EventTrigger RoutedEvent="Grid.MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <!--Skalierung zurück-->
+                                                <DoubleAnimation Storyboard.TargetName="favoriteScaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleX"
+                                                                 To="1" 
+                                                                 Duration="0:0:0.25"/>
+                                                <DoubleAnimation Storyboard.TargetName="favoriteScaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleY"
+                                                                 To="1" 
+                                                                 Duration="0:0:0.25"/>
+                                                <!--Schatten zurück-->
+                                                <DoubleAnimation Storyboard.TargetName="favoriteShadowEffect"
+                                                                 Storyboard.TargetProperty="BlurRadius"
+                                                                 To="20" 
+                                                                 Duration="0:0:0.25"/>
+                                                <DoubleAnimation Storyboard.TargetName="favoriteShadowEffect"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="0.8" 
+                                                                 Duration="0:0:0.25"/>
+                                                <!--Gradient zurück-->
+                                                <DoubleAnimation Storyboard.TargetName="favoriteBrushTransform"
+                                                                 Storyboard.TargetProperty="X"
+                                                                 To="0" 
+                                                                 Duration="0:0:0.5">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <SineEase EasingMode="EaseInOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <ColorAnimation Storyboard.TargetName="favoriteLeftStop"
+                                                                Storyboard.TargetProperty="Color"
+                                                                To="#303057" 
+                                                                Duration="0:0:0.5"/>
+                                                <ColorAnimation Storyboard.TargetName="favoriteRightStop"
+                                                                Storyboard.TargetProperty="Color"
+                                                                To="#303057" 
+                                                                Duration="0:0:0.5"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Grid.Triggers>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <!--To-do Titel-->
+            <TextBlock Text="To-dos"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Foreground="#BEBEBE"
+                       Margin="12,0,0,0"
+                       HorizontalAlignment="Left"/>
+            <!--To-do Liste-->
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" 
+                          Height="265">
+                <ItemsControl ItemsSource="{Binding Todos}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" 
+                                       Width="700"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!--Outer Grid übernimmt alles-->
+                            <Grid Width="200" 
+                                  Height="120" 
+                                  Margin="11" 
+                                  RenderTransformOrigin="0.5,0">
+                                <!--Skalierung-->
+                                <Grid.RenderTransform>
+                                    <ScaleTransform x:Name="todoScaleTransform" 
+                                                    ScaleX="1" 
+                                                    ScaleY="1"/>
+                                </Grid.RenderTransform>
+
+                                <!--Schatten-->
+                                <Grid.Effect>
+                                    <DropShadowEffect x:Name="todoShadowEffect" 
+                                                      BlurRadius="20" 
+                                                      ShadowDepth="0" 
+                                                      Opacity="0.8"/>
+                                </Grid.Effect>
+
+                                <!--Rahmen mit animiertem Gradient-->
+                                <Border CornerRadius="15" 
+                                        BorderThickness="1.5">
+                                    <Border.BorderBrush>
+                                        <LinearGradientBrush x:Name="todoGradient" 
+                                                             StartPoint="0,0" 
+                                                             EndPoint="1,0">
+                                            <LinearGradientBrush.RelativeTransform>
+                                                <TranslateTransform x:Name="todoBrushTransform" 
+                                                                    X="0"/>
+                                            </LinearGradientBrush.RelativeTransform>
+                                            <GradientStop x:Name="todoLeftStop" 
+                                                          Color="#303057" 
+                                                          Offset="0"/>
+                                            <GradientStop x:Name="todoRightStop" 
+                                                          Color="#303057" 
+                                                          Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.BorderBrush>
+
+                                    <!--Inhalt mit vertikalem Farbverlauf-->
+                                    <Border CornerRadius="13" 
+                                            Padding="10">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" 
+                                                                 EndPoint="0,1">
+                                                <GradientStop Color="#272747" 
+                                                              Offset="0.0"/>
+                                                <GradientStop Color="#161629" 
+                                                              Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Text}" 
+                                                       FontSize="16" 
+                                                       HorizontalAlignment="Center"
+                                                       Foreground="White"
+                                                       TextWrapping="Wrap"/>
+                                            <StackPanel Orientation="Horizontal"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0,10,0,0">
+                                                <Button Content="✓" 
+                                                        Foreground="White"
+                                                        Width="50"
+                                                        Height="28"
+                                                        Cursor="Hand"
+                                                        BorderThickness="0"
+                                                        Command="{Binding DataContext.CompleteTodoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource CompleteTodoButton}">
+                                                    <Button.Background>
+                                                        <LinearGradientBrush StartPoint="0,0" 
+                                                                             EndPoint="0,1">
+                                                            <GradientStop Color="#3bb143" 
+                                                                          Offset="0.0"/>
+                                                            <GradientStop Color="#2a812f" 
+                                                                          Offset="1.0"/>
+                                                        </LinearGradientBrush>
+                                                    </Button.Background>
+                                                </Button>
+                                                <Button Content="X" 
+                                                        Foreground="White"
+                                                        Width="50"
+                                                        Height="28"
+                                                        Margin="10,0,0,0"
+                                                        Cursor="Hand"
+                                                        BorderThickness="0"
+                                                        Command="{Binding DataContext.RemoveTodoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource DeleteTodoButton}">
+                                                    <Button.Background>
+                                                        <LinearGradientBrush StartPoint="0,0" 
+                                                                             EndPoint="0,1">
+                                                            <GradientStop Color="#d30000" 
+                                                                          Offset="0.0"/>
+                                                            <GradientStop Color="#a10000" 
+                                                                          Offset="1.0"/>
+                                                        </LinearGradientBrush>
+                                                    </Button.Background>
+                                                </Button>
+                                            </StackPanel>
+                                            <Button Content="☆" 
+                                                    Foreground="#FFD700"
+                                                    Background="Transparent"
+                                                    FontSize="22"
+                                                    Width="28"
+                                                    Height="28"
+                                                    Margin="0,10,0,0"
+                                                    Cursor="Hand"
+                                                    BorderThickness="0"
+                                                    Command="{Binding DataContext.ToggleFavoriteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource FavoriteButton}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Border>
+
+                                <!--Trigger für Hover-->
+                                <Grid.Triggers>
+                                    <!--MouseEnter-->
+                                    <EventTrigger RoutedEvent="Grid.MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="todoScaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleX"
+                                                                 To="1.05" 
+                                                                 Duration="0:0:0.25"/>
+                                                <DoubleAnimation Storyboard.TargetName="todoScaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleY"
+                                                                 To="1.05" 
+                                                                 Duration="0:0:0.25"/>
+                                                <DoubleAnimation Storyboard.TargetName="todoShadowEffect"
+                                                                 Storyboard.TargetProperty="BlurRadius"
+                                                                 To="24" 
+                                                                 Duration="0:0:0.25"/>
+                                                <DoubleAnimation Storyboard.TargetName="todoShadowEffect"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="0.6" 
+                                                                 Duration="0:0:0.25"/>
+                                                <!--Gradient bewegen-->
+                                                <DoubleAnimation Storyboard.TargetName="todoBrushTransform"
+                                                                 Storyboard.TargetProperty="X"
+                                                                 From="0" 
+                                                                 To="1"
+                                                                 Duration="0:0:2" 
+                                                                 AutoReverse="True" 
+                                                                 RepeatBehavior="Forever">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <SineEase EasingMode="EaseInOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <ColorAnimation Storyboard.TargetName="todoLeftStop"
+                                                                Storyboard.TargetProperty="Color"
+                                                                From="#303057" 
+                                                                To="White"
+                                                                Duration="0:0:2" 
+                                                                AutoReverse="True" 
+                                                                RepeatBehavior="Forever"/>
+                                                <ColorAnimation Storyboard.TargetName="todoRightStop"
+                                                                Storyboard.TargetProperty="Color"
+                                                                From="#303057" 
+                                                                To="White"
+                                                                Duration="0:0:2" 
+                                                                AutoReverse="True" 
+                                                                RepeatBehavior="Forever"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+
+                                    <!--MouseLeave-->
+                                    <EventTrigger RoutedEvent="Grid.MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="todoScaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleX"
+                                                                 To="1" 
+                                                                 Duration="0:0:0.25"/>
+                                                <DoubleAnimation Storyboard.TargetName="todoScaleTransform"
+                                                                 Storyboard.TargetProperty="ScaleY"
+                                                                 To="1" 
+                                                                 Duration="0:0:0.25"/>
+                                                <DoubleAnimation Storyboard.TargetName="todoShadowEffect"
+                                                                 Storyboard.TargetProperty="BlurRadius"
+                                                                 To="20" 
+                                                                 Duration="0:0:0.25"/>
+                                                <DoubleAnimation Storyboard.TargetName="todoShadowEffect"
+                                                                 Storyboard.TargetProperty="Opacity"
+                                                                 To="0.8" 
+                                                                 Duration="0:0:0.25"/>
+                                                <DoubleAnimation Storyboard.TargetName="todoBrushTransform"
+                                                                 Storyboard.TargetProperty="X"
+                                                                 To="0" 
+                                                                 Duration="0:0:0.5">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <SineEase EasingMode="EaseInOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                                <ColorAnimation Storyboard.TargetName="todoLeftStop"
+                                                                Storyboard.TargetProperty="Color"
+                                                                To="#303057" 
+                                                                Duration="0:0:0.5"/>
+                                                <ColorAnimation Storyboard.TargetName="todoRightStop"
+                                                                Storyboard.TargetProperty="Color"
+                                                                To="#303057" 
+                                                                Duration="0:0:0.5"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Grid.Triggers>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

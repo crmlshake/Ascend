@@ -1,0 +1,1189 @@
+﻿<Window x:Class="Ascend.MVVM.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ascend.MVVM.View"
+        xmlns:viewmodel="clr-namespace:Ascend.MVVM.ViewModel"
+        mc:Ignorable="d"
+        Height="700" 
+        Width="1200"
+        Background="Transparent"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="NoResize">
+
+    <Window.DataContext>
+        <viewmodel:MainViewModel/>
+    </Window.DataContext>
+
+    <!--Styles-->
+    <Window.Resources>
+        <!--Minimize Button Style-->
+        <Style x:Key="MinimizeButtonStyle" 
+               TargetType="Button">
+            <Setter Property="Foreground" 
+                    Value="#BEBEBE"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!--Hover-->
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" 
+                                                             EndPoint="0,1">
+                                            <GradientStop Color="#6366b8" 
+                                                          Offset="0"/>
+                                            <GradientStop Color="#343761" 
+                                                          Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <!--Klick-->
+                            <Trigger Property="IsPressed" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" 
+                                                             EndPoint="0,1">
+                                            <GradientStop Color="#7174d1" 
+                                                          Offset="0"/>
+                                            <GradientStop Color="#42457a" 
+                                                          Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Maximize Button Style-->
+        <Style x:Key="MaximizeButtonStyle" 
+               TargetType="Button">
+            <Setter Property="Foreground" 
+                    Value="#BEBEBE"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!--Hover-->
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" 
+                                                             EndPoint="0,1">
+                                            <GradientStop Color="#6366b8" 
+                                                          Offset="0"/>
+                                            <GradientStop Color="#343761" 
+                                                          Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <!--Klick-->
+                            <Trigger Property="IsPressed" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" 
+                                                             EndPoint="0,1">
+                                            <GradientStop Color="#7174d1" 
+                                                          Offset="0"/>
+                                            <GradientStop Color="#42457a" 
+                                                          Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Close Button Style-->
+        <Style x:Key="CloseButtonStyle" 
+               TargetType="Button">
+            <Setter Property="Foreground" 
+                    Value="#BEBEBE"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="10"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!--Hover-->
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" 
+                                                             EndPoint="0,1">
+                                            <GradientStop Color="#6366b8" 
+                                                          Offset="0"/>
+                                            <GradientStop Color="#42457a" 
+                                                          Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <!--Klick-->
+                            <Trigger Property="IsPressed" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" 
+                                                             EndPoint="0,1">
+                                            <GradientStop Color="#7174d1" 
+                                                          Offset="0"/>
+                                            <GradientStop Color="#3f4275" 
+                                                          Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RoundedToggleButton" 
+               TargetType="ToggleButton">
+            <Setter Property="Background" 
+                    Value="Transparent"/>
+            <Setter Property="Foreground" 
+                    Value="White"/>
+            <Setter Property="BorderBrush" 
+                    Value="Transparent"/>
+            <Setter Property="BorderThickness" 
+                    Value="0.5"/>
+            <Setter Property="Padding" 
+                    Value="10 5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <!--Glow Layer-->
+                            <Border x:Name="Highlight"
+                                    CornerRadius="13"
+                                    Opacity="0"
+                                    Margin="2">
+                                <Border.Background>
+                                    <LinearGradientBrush x:Name="HighlightBrush"
+                                                         StartPoint="0,0"
+                                                         EndPoint="1,0">
+                                        <GradientStop Color="#B86ADE" 
+                                                      Offset="0"/>
+                                        <GradientStop Color="#A11AFB" 
+                                                      Offset="0.5"/>
+                                        <GradientStop Color="#5415C3" 
+                                                      Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+
+                            <!--Main Border-->
+                            <Border x:Name="MainBorder"
+                                    CornerRadius="15"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Left"
+                                                  VerticalAlignment="Center"
+                                                  Margin="10,0"/>
+                            </Border>
+                        </Grid>
+
+                        <!-- Ressourcen / (optional) vordefinierte Storyboards könnten hier stehen -->
+                        <ControlTemplate.Resources>
+                            <!-- optional: keine Notwendigkeit, die Flow-Animation in Resources zu legen,
+                         wir starten sie im Loaded-Event weiter unten -->
+                        </ControlTemplate.Resources>
+
+                        <ControlTemplate.Triggers>
+                            <!--Gradient-Flow läuft immer (einmal beim Laden starten)-->
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard x:Name="GradientFlowSB">
+                                    <Storyboard RepeatBehavior="Forever" 
+                                                AutoReverse="True">
+                                        <DoubleAnimation Storyboard.TargetName="HighlightBrush"
+                                                         Storyboard.TargetProperty="GradientStops[0].Offset"
+                                                         From="0" 
+                                                         To="0.3"
+                                                         Duration="0:0:1"/>
+                                        <DoubleAnimation Storyboard.TargetName="HighlightBrush"
+                                                         Storyboard.TargetProperty="GradientStops[1].Offset"
+                                                         From="0.5" 
+                                                         To="0.8"
+                                                         Duration="0:0:1"/>
+                                        <DoubleAnimation Storyboard.TargetName="HighlightBrush"
+                                                         Storyboard.TargetProperty="GradientStops[2].Offset"
+                                                         From="1" 
+                                                         To="1.3"
+                                                         Duration="0:0:1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!--Hover(nur wenn aktuell NOT Checked)-->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" 
+                                               Value="True"/>
+                                    <Condition Property="IsChecked" 
+                                               Value="False"/>
+                                </MultiTrigger.Conditions>
+
+                                <MultiTrigger.EnterActions>
+                                    <!--Sicherstellen, dass keine anderen Opacity-Storyboards laufen-->
+                                    <StopStoryboard BeginStoryboardName="CheckedFadeIn"/>
+                                    <StopStoryboard BeginStoryboardName="CheckedFadeOut"/>
+                                    <StopStoryboard BeginStoryboardName="HoverFadeOut"/>
+
+                                    <!--Hold-Storyboard: hält die Opacity auf 1 solange Hover aktiv ist-->
+                                    <BeginStoryboard x:Name="HoverHold">
+                                        <Storyboard>
+                                            <!--Erstes kurzes Einblenden (sanft), dann halten-->
+                                            <DoubleAnimation Storyboard.TargetName="Highlight"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="1"
+                                                             Duration="0:0:0.25"
+                                                             FillBehavior="HoldEnd"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.EnterActions>
+
+                                <MultiTrigger.ExitActions>
+                                    <!--Stoppe Hold (falls noch aktiv)-->
+                                    <StopStoryboard BeginStoryboardName="HoverHold"/>
+
+                                    <!--Sanft ausblenden-->
+                                    <BeginStoryboard x:Name="HoverFadeOut">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Highlight"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0"
+                                                             Duration="0:0:0.25"
+                                                             FillBehavior="HoldEnd"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+
+                                <Setter TargetName="MainBorder" 
+                                        Property="BorderBrush" 
+                                        Value="#BEBEBE"/>
+                            </MultiTrigger>
+
+                            <!--Checked Effekt: Sanft ein- und ausblenden; Setter für visuellen Zustand-->
+                            <Trigger Property="IsChecked" 
+                                     Value="True">
+                                <!--Visuelle Basisänderungen-->
+                                <Setter TargetName="MainBorder" 
+                                        Property="Background" 
+                                        Value="Transparent"/>
+                                <Setter TargetName="MainBorder" 
+                                        Property="BorderBrush" 
+                                        Value="#BEBEBE"/>
+
+                                <Trigger.EnterActions>
+                                    <!--Hover/Hold-Storyboards ausschalten, bevor checked-Animation startet-->
+                                    <StopStoryboard BeginStoryboardName="HoverHold"/>
+                                    <StopStoryboard BeginStoryboardName="HoverFadeOut"/>
+                                    <StopStoryboard BeginStoryboardName="CheckedFadeOut"/>
+
+                                    <!--Sanftes Einblenden auf den Checked-Zustand-->
+                                    <BeginStoryboard x:Name="CheckedFadeIn">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Highlight"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="1"
+                                                             Duration="0:0:0.25"
+                                                             FillBehavior="HoldEnd"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+
+                                <Trigger.ExitActions>
+                                    <!--Beim Uncheck sanft ausblenden-->
+                                    <StopStoryboard BeginStoryboardName="CheckedFadeIn"/>
+                                    <BeginStoryboard x:Name="CheckedFadeOut">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Highlight"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0"
+                                                             Duration="0:0:0.25"
+                                                             FillBehavior="HoldEnd"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RoundedStatusButton" 
+               TargetType="Button">
+            <Setter Property="Background" 
+                    Value="#161629"/>
+            <Setter Property="BorderThickness" 
+                    Value="0"/>
+            <Setter Property="Foreground" 
+                    Value="#BEBEBE"/>
+            <Setter Property="Padding" 
+                    Value="0"/>
+            <Setter Property="Cursor" 
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+
+                        <!--Der abgerundete Hintergrund-->
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="15"
+                                SnapsToDevicePixels="True">
+
+                            <!--Inhalt des Buttons (Ellipse + TextBlock)-->
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <!--Optional: Hover-Effekt-->
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="#21213b"/>
+                            </Trigger>
+
+                            <!--Optional: Klick-Effekt-->
+                            <Trigger Property="IsPressed" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="#272745"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+        <Style x:Key="PPButton" 
+               TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                CornerRadius="15" 
+                                Background="{TemplateBinding Background}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="Transparent"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="Transparent"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--Pop-up öffnen-->
+        <Storyboard x:Key="PopupOpenAnimation">
+            <DoubleAnimation Storyboard.TargetName="PopupTranslate"
+                             Storyboard.TargetProperty="Y"
+                             From="20" 
+                             To="0"
+                             Duration="0:0:0.25"
+                             AccelerationRatio="0.2"
+                             DecelerationRatio="0.8"/>
+            <DoubleAnimation Storyboard.TargetName="SettingsPopup"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" 
+                             To="1"
+                             Duration="0:0:0.25"/>
+        </Storyboard>
+
+        <!--Pop-up schließen-->
+        <Storyboard x:Key="PopupCloseAnimation">
+            <DoubleAnimation Storyboard.TargetName="PopupTranslate"
+                             Storyboard.TargetProperty="Y"
+                             From="0" 
+                             To="20"
+                             Duration="0:0:0.25"
+                             AccelerationRatio="0.2"
+                             DecelerationRatio="0.8"/>
+            <DoubleAnimation Storyboard.TargetName="SettingsPopup"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" 
+                             To="0"
+                             Duration="0:0:0.25"/>
+        </Storyboard>
+    </Window.Resources>
+
+    <Border CornerRadius="20">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" 
+                                 EndPoint="0,1">
+                <GradientStop Color="#242543" 
+                              Offset="0"/>
+                <GradientStop Color="#19192e"
+                              Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Grid>
+            <!--Fensterstruktur-->
+            <Grid.RowDefinitions>
+                <!--Titelleiste-->
+                <RowDefinition Height="40"/>
+                <!--Suchleiste-->
+                <RowDefinition Height="55"/>
+                <!--Hauptinhalt-->
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!--Titelleiste-->
+            <Border Grid.Row="0" 
+                    MouseDown="Border_MouseDown" 
+                    CornerRadius="20,20,0,0"
+                    Background="#1e1e38">
+                <Grid>
+                    <Label Content="Ascend" 
+                           Foreground="White"
+                           FontSize="14"
+                           Margin="10,5,0,0"/>
+
+                    <StackPanel HorizontalAlignment="Right" 
+                                Orientation="Horizontal">
+
+                        <Image Source="/Icons/NotificationsIcon.png"
+                               Width="17"
+                               Height="17"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Cursor="Hand"
+                               Margin="5,0,0,0">
+
+                            <Image.RenderTransform>
+                                <RotateTransform x:Name="IconRotate" 
+                                                 Angle="0" 
+                                                 CenterX="8.5" 
+                                                 CenterY="8.5"/>
+                            </Image.RenderTransform>
+
+                            <Image.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard RepeatBehavior="1x">
+                                            <DoubleAnimation Storyboard.TargetName="IconRotate"
+                                                             Storyboard.TargetProperty="Angle"
+                                                             From="0" 
+                                                             To="15"
+                                                             Duration="0:0:0.1" 
+                                                             AutoReverse="True"/>
+                                            <DoubleAnimation Storyboard.TargetName="IconRotate"
+                                                             Storyboard.TargetProperty="Angle"
+                                                             From="0" 
+                                                             To="-15"
+                                                             BeginTime="0:0:0.2"
+                                                             Duration="0:0:0.1" 
+                                                             AutoReverse="True"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Image.Triggers>
+                        </Image>
+
+                        <Separator
+                            Width="1.5"
+                            Height="25"
+                            Margin="15,0,15,0"
+                            VerticalAlignment="Center">
+                            <Separator.Template>
+                                <ControlTemplate TargetType="Separator">
+                                    <Rectangle Width="1.5" 
+                                               Height="25" 
+                                               Fill="#272747"/>
+                                </ControlTemplate>
+                            </Separator.Template>
+                        </Separator>
+
+                        <Button Width="18"
+                                Height="18"
+                                Content="━" 
+                                Cursor="Hand"
+                                Style="{StaticResource MinimizeButtonStyle}" 
+                                Click="ButtonMinimize_Click"
+                                Margin="0,0,6,0">
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0,0" 
+                                                    EndPoint="0,1">
+                                    <GradientStop Color="#585aa3" 
+                                                  Offset="0.0"/>
+                                    <GradientStop Color="#272847" 
+                                                  Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+
+                        <Button Width="18"
+                                Height="18"
+                                Content="◻" 
+                                Cursor="Hand"
+                                Style="{StaticResource MaximizeButtonStyle}" 
+                                Click="ButtonMaximize_Click"
+                                Margin="0,0,6,0">
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0,0" 
+                                                     EndPoint="0,1">
+                                    <GradientStop Color="#585aa3" 
+                                                  Offset="0.0"/>
+                                    <GradientStop Color="#272847" 
+                                                  Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+
+                        <Button Width="18"
+                                Height="18"
+                                Content="🗙" 
+                                Cursor="Hand"
+                                Style="{StaticResource CloseButtonStyle}" 
+                                Click="ButtonClose_Click"
+                                Margin="0,0,9,0">
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0,0" 
+                                                     EndPoint="0,1">
+                                    <GradientStop Color="#585aa3" 
+                                                  Offset="0.0"/>
+                                    <GradientStop Color="#272847" 
+                                                  Offset="1.0"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!--Suchleiste unter Titelleiste-->
+            <Border Grid.Row="1" 
+                    Padding="10">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Eingabefeld für Suche-->
+                    <Border Width="200" 
+                            Height="35"
+                            CornerRadius="20" 
+                            BorderBrush="#BEBEBE"
+                            BorderThickness="0.5">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,1" 
+                                                 EndPoint="0,0">
+                                <GradientStop Color="#252747" 
+                                              Offset="0"/>
+                                <GradientStop Color="#30325c" 
+                                              Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+
+                        <TextBox x:Name="SearchTextBox"
+                                 Width="200"
+                                 Text="⌕ Search"
+                                 FontSize="14"
+                                 Foreground="#BEBEBE"
+                                 Padding="8"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 Margin="0,0,0,0"
+                                 VerticalContentAlignment="Center"
+                                 HorizontalContentAlignment="Center"
+                                 GotFocus="SearchTextBox_GotFocus"
+                                 LostFocus="SearchTextBox_LostFocus"/>
+                    </Border>
+
+                </Grid>
+            </Border>
+
+            <!--Hauptinhalt mit drei Bereichen-->
+            <Grid Grid.Row="2" 
+                  Margin="10">
+                <Grid.ColumnDefinitions>
+                    <!--Linke Spalte-->
+                    <ColumnDefinition Width="250"/>
+                    <!--Mittlere Spalte (dynamisch)-->
+                    <ColumnDefinition Width="*"/>
+                    <!--Rechte Spalte-->
+                    <ColumnDefinition Width="250"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Linker Bereich-->
+                <Border Grid.Column="0" 
+                        Background="Transparent" 
+                        CornerRadius="15" 
+                        Margin="5">
+
+                    <StackPanel>
+                        <!--Begrüßungstext-->
+                        <TextBlock x:Name="GreetingTextBlock" 
+                                   FontWeight="Bold"
+                                   FontSize="18"
+                                   Foreground="White"
+                                   Margin="15,-3,0,40"/>
+
+                        <!--Horizontale ToggleButton-Liste-->
+                        <ToggleButton x:Name="HomeToggleButton"
+                                      Style="{StaticResource RoundedToggleButton}"
+                                      Checked="HomeButton_Checked"
+                                      Width="200"
+                                      Height="40"
+                                      Margin="5"
+                                      Foreground="White"
+                                      Cursor="Hand"
+                                      Focusable="False">
+                            <StackPanel Orientation="Horizontal" 
+                                        HorizontalAlignment="Center">
+                                <Image Source="/Icons/Home01.png" 
+                                       Width="20" 
+                                       Height="20" 
+                                       RenderOptions.BitmapScalingMode="Fant"
+                                       Margin="5,0,10,0"/>
+                                <TextBlock Text="Home" 
+                                           Foreground="#BEBEBE"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ToggleButton>
+
+                        <ToggleButton x:Name="NewsToggleButton"
+                                      Style="{StaticResource RoundedToggleButton}"
+                                      Checked="NewsButton_Checked"
+                                      Width="200"
+                                      Height="40"
+                                      Margin="5"
+                                      Foreground="White"
+                                      Cursor="Hand"
+                                      Focusable="False">
+                            <StackPanel Orientation="Horizontal" 
+                                        HorizontalAlignment="Center">
+                                <Image Source="/Icons/News01.png" 
+                                       Width="20" 
+                                       Height="20" 
+                                       RenderOptions.BitmapScalingMode="Fant"
+                                       Margin="5,0,10,0"/>
+                                <TextBlock Text="News" 
+                                           Foreground="#BEBEBE"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ToggleButton>
+
+                        <ToggleButton x:Name="TodosToggleButton"
+                                      Style="{StaticResource RoundedToggleButton}"
+                                      Checked="TodosButton_Checked"
+                                      Width="200"
+                                      Height="40"
+                                      Margin="5"
+                                      Foreground="White"
+                                      Cursor="Hand"
+                                      Focusable="False">
+                            <StackPanel Orientation="Horizontal" 
+                                        HorizontalAlignment="Center">
+                                <Image Source="/Icons/To-dos01.png" 
+                                       Width="20" 
+                                       Height="20" 
+                                       RenderOptions.BitmapScalingMode="Fant"
+                                       Margin="5,0,10,0"/>
+                                <TextBlock Text="To-dos" 
+                                           Foreground="#BEBEBE"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ToggleButton>
+
+                        <ToggleButton x:Name="FriendsToggleButton"
+                                      Style="{StaticResource RoundedToggleButton}"
+                                      Checked="FriendsButton_Checked"
+                                      Width="200"
+                                      Height="40"
+                                      Margin="5"
+                                      Foreground="White"
+                                      Cursor="Hand"
+                                      Focusable="False">
+                            <StackPanel Orientation="Horizontal" 
+                                        HorizontalAlignment="Center">
+                                <Image Source="/Icons/FriendsIcon01.png" 
+                                       Width="27" 
+                                       Height="27" 
+                                       RenderOptions.BitmapScalingMode="Fant"
+                                       Margin="2,0,10,0"/>
+                                <TextBlock Text="Friends" 
+                                           Foreground="#BEBEBE"
+                                           VerticalAlignment="Center"
+                                           Margin="-3,0,0,0"/>
+                            </StackPanel>
+                        </ToggleButton>
+
+                        <ToggleButton x:Name="Neptune7ToggleButton"
+                                      Style="{StaticResource RoundedToggleButton}"
+                                      Checked="Neptune7Button_Checked"
+                                      Width="200"
+                                      Height="40"
+                                      Margin="5"
+                                      Foreground="White"
+                                      Cursor="Hand"
+                                      Focusable="False">
+                            <StackPanel Orientation="Horizontal" 
+                                        HorizontalAlignment="Center">
+                                <Image Source="/Icons/AI01.png" 
+                                       Width="20" 
+                                       Height="20" 
+                                       RenderOptions.BitmapScalingMode="Fant"
+                                       Margin="5,0,10,0"/>
+                                <TextBlock Text="NXO" 
+                                           Foreground="#BEBEBE"
+                                           Margin="0,0,0,0" 
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ToggleButton>
+
+                        <ToggleButton x:Name="SettingsToggleButton"
+                                      Style="{StaticResource RoundedToggleButton}"
+                                      Checked="SettingsButton_Checked"
+                                      Width="200"
+                                      Height="40"
+                                      Margin="5"
+                                      Foreground="White"
+                                      Cursor="Hand"
+                                      Focusable="False">
+                            <StackPanel Orientation="Horizontal" 
+                                        HorizontalAlignment="Center">
+                                <Image Source="/Icons/Settings01.png" 
+                                       Width="20" 
+                                       Height="20" 
+                                       RenderOptions.BitmapScalingMode="Fant"
+                                       Margin="5,0,10,0"/>
+                                <TextBlock Text="Settings" 
+                                           Foreground="#BEBEBE"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ToggleButton>
+
+                        <ToggleButton x:Name="HelpToggleButton"
+                                      Style="{StaticResource RoundedToggleButton}"
+                                      Checked="HelpButton_Checked"
+                                      Width="200"
+                                      Height="40"
+                                      Margin="5"
+                                      Foreground="White"
+                                      Cursor="Hand"
+                                      Focusable="False">
+                            <StackPanel Orientation="Horizontal" 
+                                        HorizontalAlignment="Center">
+                                <Image Source="/Icons/Help01.png" 
+                                       Width="20"
+                                       Height="20" 
+                                       RenderOptions.BitmapScalingMode="Fant"
+                                       Margin="5,0,10,0"/>
+                                <TextBlock Text="Help" 
+                                           Foreground="#BEBEBE"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </ToggleButton>
+
+                        <Grid>
+                            <Border x:Name="UserBorder"
+                                    Height="57"
+                                    Width="240"
+                                    Background="#161629"
+                                    CornerRadius="15"
+                                    Margin="0,107,0,0">
+
+                                <StackPanel Orientation="Horizontal" 
+                                            VerticalAlignment="Center" 
+                                            HorizontalAlignment="Left"
+                                            Margin="10,0,0,0">
+
+                                    <Grid Width="40" 
+                                          Height="40" 
+                                          Margin="0,0,10,0">
+                                        <Image x:Name="SmallProfilePicture"
+                                               Source="/Icons/DefaultPP.png"
+                                               Width="40"
+                                               Height="40"
+                                               RenderOptions.BitmapScalingMode="Fant"/>
+                                        <Ellipse Width="10" 
+                                                 Height="10"
+                                                 Fill="LimeGreen"
+                                                 HorizontalAlignment="Right"
+                                                 VerticalAlignment="Bottom"
+                                                 Margin="2"/>
+                                    </Grid>
+
+                                    <StackPanel Orientation="Vertical" 
+                                                VerticalAlignment="Center">
+                                        <TextBlock x:Name="SmallUserNameText"
+                                                   FontSize="14"
+                                                   Foreground="White"/>
+                                        <TextBlock Text="Online"
+                                                   FontSize="12"
+                                                   Foreground="#BEBEBE"
+                                                   Margin="0,1,0,0"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" 
+                                                Margin="70,0,0,0">
+
+                                        <Image Source="/Icons/CopyIcon.png"
+                                               Width="19"
+                                               Height="19"
+                                               Margin="0,0,5,0"
+                                               Cursor="Hand"
+                                               RenderOptions.BitmapScalingMode="Fant"
+                                               MouseLeftButtonDown="CopyIcon_MouseLeftButtonDown">
+                                            <Image.RenderTransform>
+                                                <RotateTransform x:Name="copyIconRotate" 
+                                                                 CenterX="10" 
+                                                                 CenterY="10"/>
+                                            </Image.RenderTransform>
+                                            <Image.Triggers>
+                                                <EventTrigger RoutedEvent="MouseEnter">
+                                                    <BeginStoryboard>
+                                                        <Storyboard RepeatBehavior="1x">
+                                                            <DoubleAnimationUsingKeyFrames 
+                                                                Storyboard.TargetProperty="(RenderTransform).(RotateTransform.Angle)"
+                                                                Duration="0:0:1.0">
+                                                                <EasingDoubleKeyFrame Value="0" 
+                                                                                      KeyTime="0:0:0" />
+                                                                <EasingDoubleKeyFrame Value="-9" 
+                                                                                      KeyTime="0:0:0.20" />
+                                                                <EasingDoubleKeyFrame Value="9" 
+                                                                                      KeyTime="0:0:0.40" />
+                                                                <EasingDoubleKeyFrame Value="-7" 
+                                                                                      KeyTime="0:0:0.60" />
+                                                                <EasingDoubleKeyFrame Value="6" 
+                                                                                      KeyTime="0:0:0.80" />
+                                                                <EasingDoubleKeyFrame Value="0" 
+                                                                                      KeyTime="0:0:1.0" />
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </EventTrigger>
+                                            </Image.Triggers>
+                                        </Image>
+
+                                        <Image x:Name="StatusSettingsButton"
+                                               Source="/Icons/Settings01.png"
+                                               Width="20"
+                                               Height="20"
+                                               Cursor="Hand"
+                                               RenderOptions.BitmapScalingMode="Fant"
+                                               Margin="10,0,0,0"
+                                               MouseLeftButtonUp="StatusSettingsButton_Click"/>
+
+                                        <Popup x:Name="StatusSettingsPopup"
+                                               PlacementTarget="{Binding ElementName=StatusSettingsButton}"
+                                               Placement="Top"
+                                               StaysOpen="False"
+                                               IsOpen="{Binding IsStatusSettingsPopupOpen, Mode=TwoWay}"
+                                               Height="35"
+                                               Width="240"
+                                               AllowsTransparency="True"
+                                               HorizontalOffset="-205"
+                                               VerticalOffset="-30">
+
+                                            <Border CornerRadius="10"
+                                                    Background="Transparent">
+
+                                                <StackPanel Orientation="Horizontal"
+                                                            HorizontalAlignment="Center">
+
+                                                    <Button Width="70"
+                                                            Height="30"
+                                                            Margin="10,0,10,0"
+                                                            Background="#161629"
+                                                            Style="{StaticResource RoundedStatusButton}">
+                                                        <StackPanel Orientation="Horizontal" 
+                                                                    VerticalAlignment="Center">
+                                                            <Ellipse Width="10" 
+                                                                     Height="10" 
+                                                                     Fill="LimeGreen" 
+                                                                     Margin="0,0,5,0"/>
+                                                            <TextBlock Text="Online"
+                                                                       Foreground="#BEBEBE"/>
+                                                        </StackPanel>
+                                                    </Button>
+                                                    <Button Width="70"
+                                                            Height="30"
+                                                            Margin="5,0,10,0"
+                                                            Background="#161629"
+                                                            Style="{StaticResource RoundedStatusButton}">
+                                                        <StackPanel Orientation="Horizontal" 
+                                                                    VerticalAlignment="Center">
+                                                            <Ellipse Width="10" 
+                                                                     Height="10" 
+                                                                     Fill="Orange" 
+                                                                     Margin="0,0,5,0"/>
+                                                            <TextBlock Text="Away"
+                                                                       Foreground="#BEBEBE"/>
+                                                        </StackPanel>
+                                                    </Button>
+                                                    <Button Width="70"
+                                                            Height="30"
+                                                            Margin="5,0,10,0"
+                                                            Background="#161629"
+                                                            Style="{StaticResource RoundedStatusButton}">
+                                                        <StackPanel Orientation="Horizontal" 
+                                                                    VerticalAlignment="Center">
+                                                            <Ellipse Width="10" 
+                                                                     Height="10" 
+                                                                     Fill="#de0a26" 
+                                                                     Margin="0,0,5,0"/>
+                                                            <TextBlock Text="Busy"
+                                                                       Foreground="#BEBEBE"/>
+                                                        </StackPanel>
+                                                    </Button>
+
+                                                </StackPanel>
+
+                                            </Border>
+                                        </Popup>
+
+
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                    
+                        </Grid>
+
+                    </StackPanel>
+                </Border>
+
+                <!--Mittlerer Bereich-->
+                <Border Grid.Column="1" 
+                        Background="#161629" 
+                        CornerRadius="15" 
+                        Margin="5">
+                    <ContentControl x:Name="MainContentControl"/>
+                </Border>
+
+                <!--Rechter Bereich UND BACKGROUND-->
+                <Border x:Name="ProfileBackgroundBorder" 
+                        Grid.Column="2" 
+                        CornerRadius="15" 
+                        Margin="5">
+
+                    <StackPanel Orientation="Vertical" 
+                                HorizontalAlignment="Center">
+
+                        <!--Grid für das Profilbild + Rahmen-->
+                        <Grid>
+
+                            <!--Profilbild-->
+                            <Image x:Name="ProfilePicture"
+                                   Source="/Icons/DefaultPP.png"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Width="200" 
+                                   Height="200"
+                                   RenderOptions.BitmapScalingMode="Fant"
+                                   Margin="0,0,0,0"/>
+
+                            <!--Rahmen (wird per Klick gesetzt)-->
+                            <Image x:Name="ProfileFrame"
+                                   Width="180" 
+                                   Height="180"
+                                   RenderOptions.BitmapScalingMode="Fant"
+                                   Visibility="Collapsed"/>
+                        </Grid>
+
+                        <Label x:Name="UserNameLabel"
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Foreground="White" 
+                               HorizontalAlignment="Center"
+                               Margin="0,-2,0,0"/>
+
+
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
+
+                            <Label Content="Level"
+                                   FontSize="14" 
+                                   FontWeight="Bold" 
+                                   Foreground="White" 
+                                   HorizontalAlignment="Center"/>
+
+
+                            <!--Level-Anzeige-->
+                            <Label x:Name="LevelLabel"
+                                   Content="{Binding CurrentLevel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   FontSize="14" 
+                                   FontWeight="Bold" 
+                                   Foreground="White" 
+                                   HorizontalAlignment="Center"/>
+
+                        </StackPanel>
+
+                        <Grid>
+                            <!--Abgerundeter Schatten-->
+                            <Border CornerRadius="6"
+                                    Width="172"
+                                    Height="14"
+                                    Background="White"
+                                    Opacity="0.5"
+                                    Margin="0,4,0,0"/>
+
+                            <!--ProgressBar mit Glow-->
+                            <ProgressBar x:Name="XpProgressBar"
+                                         Width="170"
+                                         Height="12"
+                                         Minimum="0"
+                                         Maximum="100"
+                                         Value="{Binding XpProgress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                         Margin="0,4,0,0">
+                                <ProgressBar.Template>
+                                    <ControlTemplate TargetType="ProgressBar">
+                                        <Border Background="#BEBEBE" 
+                                                CornerRadius="6" 
+                                                ClipToBounds="True">
+                                            <Grid x:Name="PART_Track">
+                                                <!--Hintergrund-->
+                                                <Border Background="#BEBEBE" 
+                                                        CornerRadius="6"/>
+
+                                                <!--Fortschrittsanzeige-->
+                                                <Border x:Name="PART_Indicator"
+                                                        HorizontalAlignment="Left"
+                                                        CornerRadius="6"
+                                                        Width="0">
+                                                    <Border.Background>
+                                                        <LinearGradientBrush x:Name="IndicatorBrush"
+                                                                             StartPoint="0,0" 
+                                                                             EndPoint="1,0">
+                                                            <GradientStop x:Name="GS1" 
+                                                                          Color="#B86ADE" 
+                                                                          Offset="0"/>
+                                                            <GradientStop x:Name="GS2" 
+                                                                          Color="#A11AFB" 
+                                                                          Offset="0.5"/>
+                                                            <GradientStop x:Name="GS3" 
+                                                                          Color="#5415C3" 
+                                                                          Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Border.Background>
+
+                                                    <!--Glow-Effekt auf Fortschritt-->
+                                                    <Border.Effect>
+                                                        <DropShadowEffect Color="#A11AFB" 
+                                                                          BlurRadius="15" 
+                                                                          ShadowDepth="0" 
+                                                                          Opacity="0.6"/>
+                                                    </Border.Effect>
+                                                </Border>
+                                            </Grid>
+
+                                            <!--Animation-->
+                                            <Border.Triggers>
+                                                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                                    <BeginStoryboard>
+                                                        <Storyboard RepeatBehavior="Forever" 
+                                                                    AutoReverse="True">
+                                                            <DoubleAnimation Storyboard.TargetName="GS2"
+                                                                             Storyboard.TargetProperty="Offset"
+                                                                             From="0.4" 
+                                                                             To="0.6"
+                                                                             Duration="0:0:1"/>
+                                                            <DoubleAnimation Storyboard.TargetName="GS3"
+                                                                             Storyboard.TargetProperty="Offset"
+                                                                             From="0.8" 
+                                                                             To="1"
+                                                                             Duration="0:0:1"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </EventTrigger>
+                                            </Border.Triggers>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ProgressBar.Template>
+                            </ProgressBar>
+                        </Grid>
+
+                        <!--XP-Text darunter-->
+                        <TextBlock x:Name="XpTextBlock"
+                                   Text="{Binding XpDisplayText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                   FontSize="12"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,2,0,0"/>
+
+                    </StackPanel>
+
+                </Border>
+
+            </Grid>
+
+        </Grid>
+
+    </Border>
+
+</Window>

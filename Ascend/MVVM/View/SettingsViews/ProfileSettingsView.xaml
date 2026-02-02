@@ -1,0 +1,370 @@
+﻿<UserControl x:Class="Ascend.MVVM.View.SettingsViews.ProfileSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ascend.MVVM.View.SettingsViews"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" 
+             d:DesignWidth="800"
+             Background="Transparent">
+
+    <!--Styles-->
+    <UserControl.Resources>
+        <Style x:Key="PPButton" 
+               TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                CornerRadius="15" 
+                                Background="{TemplateBinding Background}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!--Hover-Effekt-->
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" 
+                                                             EndPoint="0,1">
+                                            <GradientStop Color="#AF46E8" 
+                                                          Offset="0"/>
+                                            <GradientStop Color="#7D1CE0" 
+                                                          Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+
+                            <!--Klick-Effekt-->
+                            <Trigger Property="IsPressed" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" 
+                                                             EndPoint="0,1">
+                                            <GradientStop Color="#B86ADE" 
+                                                          Offset="0"/>
+                                            <GradientStop Color="#A11AFB" 
+                                                          Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Linker Bereich: Einstellungen-->
+        <StackPanel Grid.Column="0" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top">
+            <TextBlock Text="Profile" 
+                       FontSize="18" 
+                       Foreground="White"
+                       FontWeight="Bold"
+                       Margin="20,15,0,0"/>
+
+            <TextBlock Text="Profile picture" 
+                       FontSize="14" 
+                       Foreground="#BEBEBE"
+                       Margin="20,40,0,0"/>
+            <Button Content="Change profile picture" 
+                    Width="150"
+                    Height="30"
+                    Click="ToggleImageSelection"
+                    Cursor="Hand"
+                    Foreground="White"
+                    BorderThickness="1.5"
+                    BorderBrush="#B86ADE"
+                    HorizontalContentAlignment="Center"
+                    Margin="20,10,0,0"
+                    Style="{StaticResource PPButton}">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" 
+                                         EndPoint="0,1">
+                        <GradientStop Color="#A11AFB" 
+                                      Offset="0"/>
+                        <GradientStop Color="#5415C3" 
+                                      Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Popup x:Name="ImageSelectionPopup"
+                   Placement="Mouse"
+                   StaysOpen="False"
+                   AllowsTransparency="True"
+                   PopupAnimation="Fade"
+                   HorizontalOffset="10"
+                   VerticalOffset="10">
+
+                <Border CornerRadius="10"
+                        Padding="10"
+                        BorderThickness="1.5"
+                        BorderBrush="#303057"
+                        Width="270"
+                        Height="120">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" 
+                                             EndPoint="0,1">
+                            <GradientStop Color="#272747" 
+                                          Offset="0.0"/>
+                            <GradientStop Color="#161629" 
+                                          Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+
+
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Center">
+                        <Image Source="/Icons/DefaultPP.png"
+                               Width="70"
+                               Height="70"
+                               Margin="5"
+                               Cursor="Hand"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               MouseDown="ChangeProfilePicture"/>
+                        <Image Source="/Icons/PP01.png"
+                               Width="70"
+                               Height="70"
+                               Margin="5"
+                               Cursor="Hand"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               MouseDown="ChangeProfilePicture"/>
+                        <Image Source="/Icons/PP02.png"
+                               Width="70"
+                               Height="70"
+                               Margin="5"
+                               Cursor="Hand"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               MouseDown="ChangeProfilePicture"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+
+            <TextBlock Text="Frame" 
+                       FontSize="14" 
+                       Foreground="#BEBEBE"
+                       Margin="20,35,0,0"/>
+            <Button Content="Change frame" 
+                    Width="110"
+                    Height="30"
+                    Click="ToggleFrameSelection"
+                    Cursor="Hand"
+                    Foreground="White"
+                    BorderThickness="1.5"
+                    BorderBrush="#B86ADE"
+                    HorizontalContentAlignment="Center"
+                    Margin="-20,10,0,0"
+                    Style="{StaticResource PPButton}">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" 
+                                         EndPoint="0,1">
+                        <GradientStop Color="#A11AFB" 
+                                      Offset="0"/>
+                        <GradientStop Color="#5415C3" 
+                                      Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Popup x:Name="FrameSelectionPopup"
+                   Placement="Mouse"
+                   StaysOpen="False"
+                   AllowsTransparency="True"
+                   PopupAnimation="Fade"
+                   HorizontalOffset="10"
+                   VerticalOffset="10">
+
+                <Border CornerRadius="10"
+                        Padding="10"
+                        BorderThickness="1.5"
+                        BorderBrush="#303057"
+                        Width="270"
+                        Height="120">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" 
+                                             EndPoint="0,1">
+                            <GradientStop Color="#272747" 
+                                          Offset="0.0"/>
+                            <GradientStop Color="#161629" 
+                                          Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Center">
+                        <Image Source="/Icons/DefaultFrame.png"
+                               Width="70"
+                               Height="70"
+                               Margin="5"
+                               Cursor="Hand"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               MouseDown="ApplyFrame"/>
+                        <Image Source="/Icons/Frame001.png"
+                               Width="70"
+                               Height="70"
+                               Margin="5"
+                               Cursor="Hand"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               MouseDown="ApplyFrame"/>
+                        <Image Source="/Icons/Frame002.png"
+                               Width="70"
+                               Height="70"
+                               Margin="5"
+                               Cursor="Hand"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               MouseDown="ApplyFrame"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+
+            <TextBlock Text="Background" 
+                       FontSize="14" 
+                       Foreground="#BEBEBE"
+                       Margin="20,30,0,0"/>
+            <Button Content="Change background" 
+                    Width="135"
+                    Height="30"
+                    Click="ToggleBackgroundSelection"
+                    Cursor="Hand"
+                    Foreground="White"
+                    BorderThickness="1.5"
+                    BorderBrush="#B86ADE"
+                    HorizontalContentAlignment="Center"
+                    Margin="5,10,0,0"
+                    Style="{StaticResource PPButton}">
+                <Button.Background>
+                    <LinearGradientBrush StartPoint="0,0" 
+                                         EndPoint="0,1">
+                        <GradientStop Color="#A11AFB" 
+                                      Offset="0"/>
+                        <GradientStop Color="#5415C3" 
+                                      Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Popup x:Name="BackgroundSelectionPopup"
+                   Placement="Mouse"
+                   StaysOpen="False"
+                   AllowsTransparency="True"
+                   PopupAnimation="Fade"
+                   HorizontalOffset="10"
+                   VerticalOffset="10">
+
+                <Border CornerRadius="10"
+                        Padding="10"
+                        BorderThickness="1.5"
+                        BorderBrush="#303057"
+                        Width="270"
+                        Height="120">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" 
+                                             EndPoint="0,1">
+                            <GradientStop Color="#272747" 
+                                          Offset="0.0"/>
+                            <GradientStop Color="#161629" 
+                                          Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Center">
+                        <Image Source="/Icons/DefaultBackground.png"
+                               Width="70"
+                               Height="70"
+                               Margin="5"
+                               Cursor="Hand"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               MouseDown="ApplyBackground"/>
+                        <Image Source="/Icons/Background01.png"
+                               Width="70"
+                               Height="70"
+                               Margin="5"
+                               Cursor="Hand"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               MouseDown="ApplyBackground"/>
+                        <Image Source="/Icons/Background02.png"
+                               Width="70"
+                               Height="70"
+                               Margin="5"
+                               Cursor="Hand"
+                               RenderOptions.BitmapScalingMode="Fant"
+                               MouseDown="ApplyBackground"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+        </StackPanel>
+
+        <!--Rechter Bereich: Bildanzeige-->
+        <Border Grid.Column="1" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                BorderBrush="White" 
+                CornerRadius="10" 
+                Padding="5"
+                Margin="-80,-200,0,0">
+
+            <Grid Margin="0,235,0,0">
+                
+                <TextBlock Text="Preview"
+                           Foreground="White"
+                           FontSize="14"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           Margin="0,-20,0,0"/>
+
+                <!--Hintergrund-->
+                <Image Source="/Icons/DefaultBackground.png" 
+                       x:Name="ProfileBackground" 
+                       Width="400" 
+                       Height="400" 
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       RenderOptions.BitmapScalingMode="Fant" 
+                       Margin="0,10,0,0"
+                       Loaded="ProfileBackground_OnLoaded"
+                       SizeChanged="ProfileBackground_OnSizeChanged"/>
+
+                <!--Profilbild-->
+                <Image Source="/Icons/DefaultPP.png" 
+                       x:Name="ProfilePicture"
+                       Width="145"
+                       Height="145"
+                       Stretch="UniformToFill"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       RenderOptions.BitmapScalingMode="Fant"
+                       Margin="0,-250,0,0"/>
+
+                <!--Rahmen-->
+                <Image x:Name="ProfileFrame"
+                       Width="125"
+                       Height="125"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       RenderOptions.BitmapScalingMode="Fant"
+                       IsHitTestVisible="False"
+                       Margin="0,-250,0,0"/>
+
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

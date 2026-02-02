@@ -1,0 +1,367 @@
+﻿<UserControl x:Class="Ascend.MVVM.View.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ascend.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" 
+             d:DesignWidth="800"
+             Background="Transparent">
+
+    <UserControl.Resources>
+        <Style x:Key="RoundedToggleButton" 
+               TargetType="ToggleButton">
+            <Setter Property="Background" 
+                    Value="Transparent"/>
+            <Setter Property="Foreground" 
+                    Value="White"/>
+            <Setter Property="BorderBrush" 
+                    Value="Transparent"/>
+            <Setter Property="BorderThickness" 
+                    Value="0.5"/>
+            <Setter Property="Padding" 
+                    Value="10 5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <!--Glow Layer-->
+                            <Border x:Name="Highlight"
+                                    CornerRadius="13"
+                                    Opacity="0"
+                                    Margin="2">
+                                <Border.Background>
+                                    <LinearGradientBrush x:Name="HighlightBrush"
+                                                         StartPoint="0,0"
+                                                         EndPoint="1,0">
+                                        <GradientStop Color="#B86ADE" 
+                                                      Offset="0"/>
+                                        <GradientStop Color="#A11AFB" 
+                                                      Offset="0.5"/>
+                                        <GradientStop Color="#5415C3" 
+                                                      Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+
+                            <!--Main Border-->
+                            <Border x:Name="MainBorder"
+                                    CornerRadius="15"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Left"
+                                                  VerticalAlignment="Center"
+                                                  Margin="10,0"/>
+                            </Border>
+                        </Grid>
+
+                        <!-- Ressourcen / (optional) vordefinierte Storyboards könnten hier stehen -->
+                        <ControlTemplate.Resources>
+                            <!-- optional: keine Notwendigkeit, die Flow-Animation in Resources zu legen,
+                 wir starten sie im Loaded-Event weiter unten -->
+                        </ControlTemplate.Resources>
+
+                        <ControlTemplate.Triggers>
+                            <!--Gradient-Flow läuft immer (einmal beim Laden starten)-->
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard x:Name="GradientFlowSB">
+                                    <Storyboard RepeatBehavior="Forever" 
+                                                AutoReverse="True">
+                                        <DoubleAnimation Storyboard.TargetName="HighlightBrush"
+                                                         Storyboard.TargetProperty="GradientStops[0].Offset"
+                                                         From="0" 
+                                                         To="0.3"
+                                                         Duration="0:0:1"/>
+                                        <DoubleAnimation Storyboard.TargetName="HighlightBrush"
+                                                         Storyboard.TargetProperty="GradientStops[1].Offset"
+                                                         From="0.5" 
+                                                         To="0.8"
+                                                         Duration="0:0:1"/>
+                                        <DoubleAnimation Storyboard.TargetName="HighlightBrush"
+                                                         Storyboard.TargetProperty="GradientStops[2].Offset"
+                                                         From="1" 
+                                                         To="1.3"
+                                                         Duration="0:0:1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!-- Hover(nur wenn aktuell NOT Checked)-->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" 
+                                               Value="True"/>
+                                    <Condition Property="IsChecked" 
+                                               Value="False"/>
+                                </MultiTrigger.Conditions>
+
+                                <MultiTrigger.EnterActions>
+                                    <!--Sicherstellen, dass keine anderen Opacity-Storyboards laufen-->
+                                    <StopStoryboard BeginStoryboardName="CheckedFadeIn"/>
+                                    <StopStoryboard BeginStoryboardName="CheckedFadeOut"/>
+                                    <StopStoryboard BeginStoryboardName="HoverFadeOut"/>
+
+                                    <!--Hold-Storyboard: hält die Opacity auf 1 solange Hover aktiv ist-->
+                                    <BeginStoryboard x:Name="HoverHold">
+                                        <Storyboard>
+                                            <!--Erstes kurzes Einblenden (sanft), dann halten-->
+                                            <DoubleAnimation Storyboard.TargetName="Highlight"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="1"
+                                                             Duration="0:0:0.25"
+                                                             FillBehavior="HoldEnd"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.EnterActions>
+
+                                <MultiTrigger.ExitActions>
+                                    <!--Stoppe Hold (falls noch aktiv)-->
+                                    <StopStoryboard BeginStoryboardName="HoverHold"/>
+
+                                    <!--Sanft ausblenden-->
+                                    <BeginStoryboard x:Name="HoverFadeOut">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Highlight"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0"
+                                                             Duration="0:0:0.25"
+                                                             FillBehavior="HoldEnd"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiTrigger.ExitActions>
+
+                                <Setter TargetName="MainBorder" 
+                                        Property="BorderBrush" 
+                                        Value="#BEBEBE"/>
+                            </MultiTrigger>
+
+                            <!--Checked Effekt: Sanft ein- und ausblenden; Setter für visuellen Zustand-->
+                            <Trigger Property="IsChecked" 
+                                     Value="True">
+                                <!--Visuelle Basisänderungen-->
+                                <Setter TargetName="MainBorder" 
+                                        Property="Background" 
+                                        Value="Transparent"/>
+                                <Setter TargetName="MainBorder" 
+                                        Property="BorderBrush" 
+                                        Value="#BEBEBE"/>
+
+                                <Trigger.EnterActions>
+                                    <!--Hover/Hold-Storyboards ausschalten, bevor checked-Animation startet-->
+                                    <StopStoryboard BeginStoryboardName="HoverHold"/>
+                                    <StopStoryboard BeginStoryboardName="HoverFadeOut"/>
+                                    <StopStoryboard BeginStoryboardName="CheckedFadeOut"/>
+
+                                    <!--Sanftes Einblenden auf den Checked-Zustand-->
+                                    <BeginStoryboard x:Name="CheckedFadeIn">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Highlight"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="1"
+                                                             Duration="0:0:0.25"
+                                                             FillBehavior="HoldEnd"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+
+                                <Trigger.ExitActions>
+                                    <!--Beim Uncheck sanft ausblenden-->
+                                    <StopStoryboard BeginStoryboardName="CheckedFadeIn"/>
+                                    <BeginStoryboard x:Name="CheckedFadeOut">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="Highlight"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0"
+                                                             Duration="0:0:0.25"
+                                                             FillBehavior="HoldEnd"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--IN VERWENDUNG-->
+        <Style x:Key="ModernToggleSwitch" 
+               TargetType="ToggleButton">
+            <Setter Property="Width" 
+                    Value="55"/>
+            <Setter Property="Height" 
+                    Value="28"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid>
+                            <Border x:Name="SwitchTrack"
+                                    Background="#3a454f"
+                                    CornerRadius="14"
+                                    Height="28"
+                                    Width="55"/>
+                            <Ellipse x:Name="SwitchThumb"
+                                     Width="24"
+                                     Height="24"
+                                     Fill="White"
+                                     Margin="2"
+                                     HorizontalAlignment="Left"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" 
+                                     Value="True">
+                                <Setter TargetName="SwitchTrack" 
+                                        Property="Background" 
+                                        Value="#3bb143"/>
+                                <Setter TargetName="SwitchThumb" 
+                                        Property="HorizontalAlignment" 
+                                        Value="Right"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="SwitchTrack" 
+                                        Property="Opacity" 
+                                        Value="0.7"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" 
+                                     Value="False">
+                                <Setter TargetName="SwitchTrack" 
+                                        Property="Opacity" 
+                                        Value="0.5"/>
+                                <Setter TargetName="SwitchThumb" 
+                                        Property="Fill" 
+                                        Value="#CCC"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Linker Bereich-->
+        <Border Grid.Column="0" 
+                CornerRadius="10" 
+                Margin="0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" 
+                                     EndPoint="0,1">
+                    <GradientStop Color="#1e1e38" 
+                                  Offset="0.0"/>
+                    <GradientStop Color="#17172b" 
+                                  Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <StackPanel>
+
+                <TextBlock Text="Settings"
+                           Foreground="White"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Margin="15,15,0,20"/>
+
+                <!--Horizontale ToggleButton-Liste-->
+                <ToggleButton x:Name="ProfileSettingsToggleButton"
+                              Checked="ProfileSettingsButton_Checked"
+                              Style="{StaticResource RoundedToggleButton}"
+                              Width="170"
+                              Height="40"
+                              Margin="0,25,0,5"
+                              Foreground="#BEBEBE"
+                              Cursor="Hand"
+                              Focusable="False">
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Center">
+                        <Image Source="/Icons/ProfileSettings.png" 
+                               Width="20" 
+                               Height="20" 
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Margin="5,0,10,0"/>
+                        <TextBlock Text="Profile" 
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton x:Name="PrivacySettingsToggleButton"
+                              Checked="PrivacySettingsButton_Checked"
+                              Style="{StaticResource RoundedToggleButton}"
+                              Width="170"
+                              Height="40"
+                              Margin="5"
+                              Foreground="#BEBEBE"
+                              Cursor="Hand"
+                              Focusable="False">
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Center">
+                        <Image Source="/Icons/PrivacySettings.png" 
+                               Width="20" 
+                               Height="20" 
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Margin="5,0,10,0"/>
+                        <TextBlock Text="Data &amp; Privacy" 
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton x:Name="LanguageSettingsToggleButton"
+                              Checked="LanguageSettingsButton_Checked"
+                              Style="{StaticResource RoundedToggleButton}"
+                              Width="170"
+                              Height="40"
+                              Margin="5"
+                              Foreground="#BEBEBE"
+                              Cursor="Hand"
+                              Focusable="False">
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Center">
+                        <Image Source="/Icons/LanguageSettings.png" 
+                               Width="22" 
+                               Height="22" 
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Margin="5,0,10,0"/>
+                        <TextBlock Text="Language" 
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton x:Name="ExtendedSettingsToggleButton"
+                              Checked="ExtendedSettingsButton_Checked"
+                              Style="{StaticResource RoundedToggleButton}"
+                              Width="170"
+                              Height="40"
+                              Margin="5"
+                              Foreground="#BEBEBE"
+                              Cursor="Hand"
+                              Focusable="False">
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Center">
+                        <Image Source="/Icons/ExtendedSettings.png" 
+                               Width="20" 
+                               Height="20" 
+                               RenderOptions.BitmapScalingMode="Fant"
+                               Margin="7,0,10,0"/>
+                        <TextBlock Text="Extended" 
+                                   VerticalAlignment="Center"
+                                   Margin="1,0,0,0"/>
+                    </StackPanel>
+                </ToggleButton>
+            </StackPanel>
+        </Border>
+
+        <!--Rechter Bereich-->
+        <Border Grid.Column="1" 
+                Background="#161629" 
+                CornerRadius="10">
+            <ContentControl x:Name="RightContentControl"/>
+        </Border>
+    </Grid>
+</UserControl>
