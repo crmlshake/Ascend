@@ -13,7 +13,8 @@ Create an account or sign in to track your progress and connect with others.
 ### 🏠 Home  
 Your central hub: overview of your progress, level, and current objectives.
 
-<img width="1200" height="700" alt="Ascend1" src="https://github.com/user-attachments/assets/d58ad86f-89dd-42a1-abc2-b78f5e9100e8" />
+<img width="1200" height="700" alt="Ascend001" src="https://github.com/user-attachments/assets/a0223f07-c22e-44a4-9453-94eed21eff94" />
+
 
 ---
 
@@ -48,4 +49,4 @@ Let AI suggest personalized tasks based on your habits and goals.
 ### ⚙️ Settings  
 Customize your experience, preferences, and account settings.
 
-<img width="1200" height="700" alt="Ascend6" src="https://github.com/user-attachments/assets/c0f2e79d-87e6-4284-a783-ab53443e92b6" />
+<img width="1200" height="700" alt="Ascend002" src="https://github.com/user-attachments/assets/05ee6252-0762-4686-a335-a0e22353dda4" />
